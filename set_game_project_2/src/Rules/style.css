@@ -1,0 +1,73 @@
+:root {
+    --main-variation-color: crimson;
+    --main-background-color: wheat;
+    --button-background-color: black;
+    --button-highlight-color: chocolate;
+}
+
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--main-background-color);
+    overflow-y:hidden;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+}
+b {
+    color: var(--main-variation-color);
+}
+
+#rules-header {
+    font-size: 70px;
+    margin-bottom: 10px;
+}
+.rules-explanation {
+    text-align: center;
+    font-size: 32px;
+    width: 50%;
+}
+
+li {
+    font-size: 36px;
+}
+form {
+    display: inline-block;
+}
+button {
+    display: inline-block;
+    background-color:var(--button-background-color);
+    color: var(--main-variation-color);
+    border: none;
+    padding: 15px 32px;
+    font-size: 32px;
+    outline: none;
+    cursor: pointer;
+}
+#back {
+    border-radius: 50px 0px 0px 50px;
+    margin-right: 3px;
+}
+#play {
+    border-radius: 0px 50px 50px 0px;
+    margin-left: 3px;
+}
+#back:hover, #play:hover {
+    background-color: var(--button-highlight-color);
+    color: var(--button-background-color);
+}
+
+@media (max-width: 863px) {
+    .main-container {
+        display: flex;
+        flex-direction: column;
+        align-items:center;
+        text-align: center;
+    }
+}

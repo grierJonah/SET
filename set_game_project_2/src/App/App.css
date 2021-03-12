@@ -1,0 +1,35 @@
+:root {
+  --main-background-color: wheat;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--main-background-color);
+}
+
+a {
+  color:black;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration:underline;
+  color:chocolate;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#game-title {
+  font-size: 90px;
+}
+
+#rules {
+  font-size: 36px;
+}
