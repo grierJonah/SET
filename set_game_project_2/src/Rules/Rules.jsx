@@ -1,11 +1,11 @@
 import React from 'react';
-import './style.css';
+import './Rules.css';
 
 export default class Rules extends React.Component {
 
     render() {
         return (
-            <div class="main-container">
+            <div className="main-container">
                 <h2 id="rules-header">How to play:</h2>
                 <p className="rules-explanation">SET is a card game that contains 81 cards. Each card has 4 different features, with 3
                 variations on each feature:</p>

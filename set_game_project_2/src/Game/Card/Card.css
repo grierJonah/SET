@@ -1,0 +1,14 @@
+.game-card {
+    display: flex;
+    flex-direction: row;
+    height: 150px;
+    width: 200px;
+    background-color: none;
+    border: 1px solid goldenrod;
+    margin: 10px 10px;
+    align-content: center;
+}
+
+.game-card:hover {
+    background-color: goldenrod;
+}
