@@ -18,10 +18,10 @@ export default class Rules extends React.Component {
                 <p className="rules-explanation second">Select 3 cards that have <u>all</u> or <u>none</u> of the same variations</p>
                 <div class="back-button">
                     <form action="../">
-                        <button type="submit" id="back">Back</button>
+                        <button className="rules-game-button" type="submit" id="back">Back</button>
                     </form>
                     <form action="../game/">
-                        <button type="submit" id="play">Play</button>
+                        <button className="rules-game-button" type="submit" id="play">Play</button>
                     </form>
                 </div>
             </div>
