@@ -45,13 +45,16 @@ button:hover {
 
   grid-template-columns: 1fr 5fr 1fr;
   grid-template-rows: 1fr 8fr;
-  grid-gap: 10px;
+  grid-gap: 5px;
   height: 100vh;
 }
 
 .header-container {
   grid-area: header;
   border: 3px solid green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .side-panel-left-container {
@@ -83,4 +86,10 @@ button:hover {
   width: 75%;
   align-items: center;
   justify-content: center;
+}
+.links {
+  cursor: pointer;
+}
+#inner-game-title {
+  font-size: 30px;
 }

@@ -5,7 +5,13 @@ import Card from './Card/Card';
 
 class Game extends React.Component {
 
+
+
     onLinkClick(action) {
+        this.props.dispatch({ type: action })
+    }
+
+    getRandomSVGType(action) {
         this.props.dispatch({ type: action })
     }
 
@@ -13,7 +19,7 @@ class Game extends React.Component {
         return (
             <div className="main-body-container">
                 <div className="header-container">
-
+                    <h1 id="inner-game-title">SET</h1>
                 </div>
                 <div className="side-panel-left-container">
                     <div className="link-container">
@@ -33,7 +39,7 @@ class Game extends React.Component {
                     </div>
                     <div className="link-container">
                         <ul>
-                            <button className="links"><a href="/">Quit</a></button>
+                            <a href="/"><button className="links">Quit</button></a>
                         </ul>
                     </div>
                 </div>
@@ -43,14 +49,15 @@ class Game extends React.Component {
                             <div className="initial-cards">
                                 {this.props.new_game_state.card_array.map((item) => {
                                     return (
-                                        <Card key={item} num={item}></Card>
+                                        // console.log(index)
+                                        <Card key={item} shape={item} ></Card>
                                     );
                                 })}
                             </div>
                         }
                     </div>
                 </div>
-            </div>
+            </div >
         );
     }
 }
@@ -64,6 +71,7 @@ let mapDispatchToProps = function (dispatch, props) {
 let mapStateToProps = function (state, props) {
     return {
         new_game_state: state.new_game,
+        svg_icon_state: state.svg_icon,
     }
 }
 
