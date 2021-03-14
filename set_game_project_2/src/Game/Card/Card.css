@@ -13,22 +13,6 @@
     background-color: goldenrod;
 }
 
-#red {
-    background-color: red;
-}
-
-#blue {
-    background-color: blue;
-}
-
-#green {
-    background-color: green;
-}
-
-#square { 
-    border: 1px solid black;
-}
-
-#circle { 
-    
+.square:hover {
+    background-color: deeppink;
 }
