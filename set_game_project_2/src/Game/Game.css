@@ -79,6 +79,7 @@ button:hover {
   justify-content: center;
   align-items: center;
   position: relative;
+  height: 89vh;
 }
 .initial-cards {
   display: flex;
