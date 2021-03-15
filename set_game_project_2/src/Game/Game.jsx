@@ -15,11 +15,6 @@ class Game extends React.Component {
         this.props.dispatch({ type: action })
     }
 
-    toggleCardColor(action) {
-        this.props.dispatch({ type: action })
-    }
-
-
 
     render() {
         return (
@@ -55,7 +50,6 @@ class Game extends React.Component {
                             <div className="initial-cards">
                                 {this.props.new_game_state.card_array.map((item) => {
                                     return (
-                                        // console.log(index)
                                         <Card key={item} shape={item}></Card>
                                     );
                                 })}
@@ -77,8 +71,7 @@ let mapDispatchToProps = function (dispatch, props) {
 let mapStateToProps = function (state, props) {
     return {
         new_game_state: state.new_game,
-        svg_icon_state: state.svg_icon,
-        toggle_card_color_state: state.toggleCardColor,
+        // svg_icon_state: state.svg_icon,
     }
 }
 

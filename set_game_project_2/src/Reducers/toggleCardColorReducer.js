@@ -1,14 +1,16 @@
 export default function (state = {
-    color: 'wheat',
+    color: 'none',
 }, action) {
+    let grey_color = 'grey';
+    let none_color = 'none'
     if (action.type === "CHANGE_COLOR") {
-        if (this.state.color === 'wheat') {
+        if (state.color === 'none') {
             return {
-                ...state, color: 'grey',
+                color: grey_color,
             }
         } else {
             return {
-                ...state, color: 'wheat',
+                color: none_color,
             }
         }
     }

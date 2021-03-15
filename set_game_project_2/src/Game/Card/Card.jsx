@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import './Card.css'
+import Circle from './Circle/Circle';
 
-export default class Card extends React.Component {
+class Card extends React.Component {
 
     constructor(props) {
         super(props);
@@ -10,20 +12,29 @@ export default class Card extends React.Component {
             shape: props.shape.shape,
             number: props.shape.number,
             pattern: props.shape.pattern,
-            backgroundColor: props.onClick,
+            card_color: props.curr_card_color,
         }
+    }
 
+    toggleCardColor(action, bg) {
+        this.props.dispatch({ type: action })
+    }
+
+    createShapedCard(action) {
+        this.props.dispatch({ type: action })
     }
 
     // TODO: PASS ID through PROPS
     render() {
-        console.log(this.props.onClick);
         if (this.state.shape === "circle") {
+            let arr = []
+            for (let i = 0; i < this.state.number; i++) {
+                arr.push(this.state.pattern)
+            }
+            // this.createShapedCard("CREATE_CARD_OBJECT", arr);
             return (
-                <svg className="game-card circle" width="200" height="175">
-                    <circle cx="100" cy="65" r="40" strokeWidth="2" stroke="black" fill={this.state.color}></circle>
-                </svg>
-            );
+                <Circle num_shapes={arr} color={this.state.color}></Circle>
+            )
         } else if (this.state.shape === "square") {
             return (
                 <svg className="game-card square" width="200" height="175" viewBox="0 0 100 100">
@@ -39,3 +50,20 @@ export default class Card extends React.Component {
         }
     }
 }
+
+let mapDispatchToProps = function (dispatch, props) {
+    return {
+        dispatch: dispatch,
+    }
+}
+
+let mapStateToProps = function (state, props) {
+    return {
+        curr_card_color: state.toggle_color,
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(Card)
