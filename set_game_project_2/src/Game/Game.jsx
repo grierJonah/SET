@@ -32,8 +32,8 @@ class Game extends React.Component {
                     </div>
                     <div className="game-statistics">
                         <ul>
-                            <li>Cards in deck: {this.props.new_game_state.num_cards_on_screen}</li>
-                            <li>Game Duration: { }</li>
+                            <li>Cards in deck:</li>
+                            <li>Game Duration:</li>
                             <li>Sets found: </li>
                             <li>Score: </li>
                         </ul>
@@ -48,9 +48,10 @@ class Game extends React.Component {
                     <div className="card-container">
                         {
                             <div className="initial-cards">
-                                {this.props.new_game_state.card_array.map((item) => {
+                                {this.props.deck_in_state.deck.slice(0, 12).map((card, value) => {
+                                    console.log(value);
                                     return (
-                                        <Card key={item} shape={item}></Card>
+                                        <Card key={value} shape={card}></Card>
                                     );
                                 })}
                             </div>
@@ -70,8 +71,7 @@ let mapDispatchToProps = function (dispatch, props) {
 
 let mapStateToProps = function (state, props) {
     return {
-        new_game_state: state.new_game,
-        // svg_icon_state: state.svg_icon,
+        deck_in_state: state.starting_deck,
     }
 }
 

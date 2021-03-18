@@ -17,13 +17,13 @@ export default class Circle extends React.Component {
                     stroke={this.props.color}>
                 </rect>);
         }
-        if (squares.length == 1) {
+        if (squares.length === 1) {
             return (
                 <svg className="game-card circle" width="200" height="200" viewBox="-35 -35 100 100">
                     {squares}
                 </svg>
             );
-        } else if (squares.length == 2) {
+        } else if (squares.length === 2) {
             return (
                 <svg className="game-card circle" width="200" height="200" viewBox="-20 -50 100 100">
                     {squares}

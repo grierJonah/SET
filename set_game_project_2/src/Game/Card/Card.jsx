@@ -33,7 +33,6 @@ class Card extends React.Component {
             for (let i = 0; i < this.state.number; i++) {
                 arr.push(this.state.pattern)
             }
-            console.log("Circles", arr);
             return (
                 <Circle num_shapes={arr} color={this.state.color}></Circle>
             )
