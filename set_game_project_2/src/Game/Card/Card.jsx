@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import './Card.css'
 import Circle from './Circle/Circle';
+import Square from './Square/Square';
+import Triangle from './Triangle/Triangle';
 
 class Card extends React.Component {
 
@@ -31,22 +33,26 @@ class Card extends React.Component {
             for (let i = 0; i < this.state.number; i++) {
                 arr.push(this.state.pattern)
             }
-            // this.createShapedCard("CREATE_CARD_OBJECT", arr);
+            console.log("Circles", arr);
             return (
                 <Circle num_shapes={arr} color={this.state.color}></Circle>
             )
         } else if (this.state.shape === "square") {
+            let arr = []
+            for (let i = 0; i < this.state.number; i++) {
+                arr.push(this.state.pattern)
+            }
             return (
-                <svg className="game-card square" width="200" height="175" viewBox="0 0 100 100">
-                    <rect width="50" height="50" x="25" y="25" fill={this.state.color} stroke="black" strokeWidth="1" />
-                </svg>
-            );
+                <Square num_shapes={arr} color={this.state.color}></Square>
+            )
         } else {
+            let arr = []
+            for (let i = 0; i < this.state.number; i++) {
+                arr.push(this.state.pattern)
+            }
             return (
-                <svg className="game-card triangle" width="200" height="165" >
-                    <polygon points="100,25 50,100 150,100" fill={this.state.color} stroke="black" strokeWidth="2" />
-                </svg>
-            );
+                <Triangle num_shapes={arr} color={this.state.color}></Triangle>
+            )
         }
     }
 }
