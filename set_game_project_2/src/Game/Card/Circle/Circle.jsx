@@ -48,13 +48,13 @@ export default class Circle extends React.Component {
         }
 
         if (shapes[0].type === "svg") {
-            if (shapes.length == 1) {
+            if (shapes.length === 1) {
                 return (
                     <svg className="game-card circle" width="200" height="200" viewBox="-50 -50 100 100">
                         {shapes[0].props.children}
                     </svg>
                 );
-            } else if (shapes.length == 2) {
+            } else if (shapes.length === 2) {
                 return (
                     <svg className="game-card circle" width="200" height="200" viewBox="-35 -65 100 100">
                         {shapes[0].props.children}

@@ -5,10 +5,9 @@ export default class Circle extends React.Component {
 
     render() {
         const triangles = [];
-        const pattern = this.props.num_shapes[0]
-        console.log(this.props.num_shapes)
+        const pattern = this.props.num_shapes[0];
         const triangle_placement = [
-            "50,80 30,120 70,120",
+            "50,80 24,120 74,120",
             "100,45 75,90 125,90",
             "150,5 125,45 175,45"
         ];
@@ -47,14 +46,13 @@ export default class Circle extends React.Component {
             }
         }
         if (triangles[0].type === "svg") {
-            if (triangles.length == 1) {
-                console.log(triangles);
+            if (triangles.length === 1) {
                 return (
                     <svg className="game-card triangle" width="200" height="200" viewBox="0 50 100 100">
                         {triangles[0].props.children}
                     </svg>
                 );
-            } else if (triangles.length == 2) {
+            } else if (triangles.length === 2) {
                 return (
                     <svg className="game-card triangle" width="200" height="200" viewBox="25 35 100 100">
                         {triangles[0].props.children}
