@@ -91,25 +91,5 @@ export default class Circle extends React.Component {
                 );
             }
         }
-
-        // if (shapes.length === 1) {
-        //     return (
-        //         <svg className="game-card circle" width="200" height="200" viewBox="-50 -50 100 100">
-        //             {shapes}
-        //         </svg>
-        //     );
-        // } else if (shapes.length === 2) {
-        //     return (
-        //         <svg className="game-card circle" width="200" height="200" viewBox="-35 -65 100 100">
-        //             {shapes}
-        //         </svg>
-        //     );
-        // } else {
-        //     return (
-        //         <svg className="game-card circle" width="200" height="200" viewBox="-20 -80 100 100">
-        //             {shapes}
-        //         </svg>
-        //     );
-        // }
     }
 }

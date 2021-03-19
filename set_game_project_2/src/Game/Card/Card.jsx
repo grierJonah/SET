@@ -49,7 +49,7 @@ class Card extends React.Component {
                 arr.push(this.state.pattern)
             }
             return (
-                <Square num_shapes={arr} color={this.state.color}></Square>
+                <Square num_shapes={arr} color={this.state.color} card_id={this.props.card_id.index}></Square>
             )
         } else {
             let arr = []
@@ -57,7 +57,7 @@ class Card extends React.Component {
                 arr.push(this.state.pattern)
             }
             return (
-                <Triangle num_shapes={arr} color={this.state.color}></Triangle>
+                <Triangle num_shapes={arr} color={this.state.color} card_id={this.props.card_id.index}></Triangle>
             )
         }
     }
