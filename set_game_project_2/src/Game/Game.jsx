@@ -50,7 +50,7 @@ class Game extends React.Component {
                             <div className="initial-cards">
                                 {this.props.deck_in_state.deck.slice(0, 12).map((card) => {
                                     return (
-                                        <Card card_id={card} shape={card}></Card>
+                                        <Card card_info={card} card_id={card} shape={card}></Card>
                                     );
                                 })}
                             </div>

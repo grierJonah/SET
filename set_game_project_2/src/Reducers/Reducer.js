@@ -4,5 +4,5 @@ import SelectedCardReducer from './SelectedCardReducer';
 
 export default combineReducers({
     starting_deck: NewGameReducer,
-    selected_card: SelectedCardReducer,
+    selected_cards: SelectedCardReducer,
 })
