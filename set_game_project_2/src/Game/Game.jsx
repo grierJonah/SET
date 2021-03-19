@@ -6,8 +6,6 @@ import Card from './Card/Card';
 class Game extends React.Component {
 
 
-
-
     // DISPATCH --> NewGameReducer.js
     onLinkClick(action) {
         this.props.dispatch({ type: action })

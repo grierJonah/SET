@@ -71,15 +71,13 @@ button:hover {
 .body-container {
   grid-area: game-body;
   border: 3px solid green;
-  display: flex;
-  justify-content: center;
 }
+
 .card-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-  height: 89vh;
+  height: 100%;
 }
 .initial-cards {
   display: flex;
