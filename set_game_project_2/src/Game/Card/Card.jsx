@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ShaderChunk } from 'three';
 import './Card.css'
 import Circle from './Circle/Circle';
 import Square from './Square/Square';
