@@ -12,7 +12,7 @@ export default class Circle extends React.Component {
                     <svg>
                         <defs>
                             <pattern id={"dashed_" + this.props.card_id} patternUnits="userSpaceOnUse" width="12.5" height="12.5" patternTransform="rotate(90)">
-                                <line x1="0" y="0" x2="0" y2="15" stroke={this.props.color} strokeWidth="2" />
+                                <line x1="0" y="0" x2="12" y2="14" stroke={this.props.color} strokeWidth="2" />
                             </pattern>
                         </defs>
                         <rect
