@@ -1,9 +1,8 @@
 import { combineReducers } from 'redux';
 import NewGameReducer from './NewGameReducer';
-import toggleCardColorReducer from './toggleCardColorReducer';
-import toggle_color from './toggleCardColorReducer';
+import SelectedCardReducer from './SelectedCardReducer';
 
 export default combineReducers({
     starting_deck: NewGameReducer,
-    toggle_color: toggleCardColorReducer,
+    selected_card: SelectedCardReducer,
 })

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { ShaderChunk } from 'three';
 import './Card.css'
 import Circle from './Circle/Circle';
 import Square from './Square/Square';
@@ -26,6 +27,10 @@ class Card extends React.Component {
         this.props.dispatch({ type: action })
     }
 
+    checkFunc() {
+        console.log("CLICKED");
+    }
+
     // TODO: PASS ID through PROPS
     render() {
         if (this.state.shape === "circle") {
@@ -34,7 +39,9 @@ class Card extends React.Component {
                 arr.push(this.state.pattern)
             }
             return (
-                <Circle num_shapes={arr} color={this.state.color}></Circle>
+                <span onClick={() => this.checkFunc()}>
+                    <Circle num_shapes={arr} color={this.state.color} card_id={this.props.card_id.index}></Circle>
+                </span>
             )
         } else if (this.state.shape === "square") {
             let arr = []

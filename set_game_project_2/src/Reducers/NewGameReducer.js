@@ -21,11 +21,13 @@ export default function (state = {
 
         // Initialize card objects
         // pushing to deck of 81 cards
+        let index = 0;
         for (const shape of shapes) {
             for (const color of colors) {
                 for (const pattern of patterns) {
                     for (const number of numbers) {
-                        deck.push({ shape, color, pattern, number })
+                        deck.push({ index, shape, color, pattern, number })
+                        index += 1
                     }
                 }
             }

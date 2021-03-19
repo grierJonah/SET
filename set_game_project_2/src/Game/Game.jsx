@@ -7,14 +7,16 @@ class Game extends React.Component {
 
 
 
+
+    // DISPATCH --> NewGameReducer.js
     onLinkClick(action) {
         this.props.dispatch({ type: action })
     }
 
-    getRandomSVGType(action) {
-        this.props.dispatch({ type: action })
+    // DISPATCH --> SelectedCardReducer.js
+    onCardClick(action, array) {
+        this.props.dispatch({ type: action, deck: array })
     }
-
 
     render() {
         return (
@@ -48,10 +50,9 @@ class Game extends React.Component {
                     <div className="card-container">
                         {
                             <div className="initial-cards">
-                                {this.props.deck_in_state.deck.slice(0, 12).map((card, value) => {
-                                    console.log(value);
+                                {this.props.deck_in_state.deck.slice(0, 12).map((card) => {
                                     return (
-                                        <Card key={value} shape={card}></Card>
+                                        <Card card_id={card} shape={card}></Card>
                                     );
                                 })}
                             </div>
@@ -72,6 +73,7 @@ let mapDispatchToProps = function (dispatch, props) {
 let mapStateToProps = function (state, props) {
     return {
         deck_in_state: state.starting_deck,
+        selected_card_bool: state.selected_card,
     }
 }
 
