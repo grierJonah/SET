@@ -4,31 +4,25 @@ export default function (state = {
 }, action) {
 
     let cards = []
-
-    console.log(state.clicked_cards);
+    let card_id = action.id_number;
 
     if (action.type === 'SELECTED_CARD') {
-        cards.push(action.id_number)
+        cards.push(card_id)
 
         // check size is less than or equal to 3
         // check if card is already in list
-        if (state.clicked_cards.length < 3 && (state.clicked_cards.indexOf(action.id_number) === -1)) {
+        if (state.clicked_cards.length < 3 && (state.clicked_cards.indexOf(card_id) === -1)) {
             return {
                 ...state,
-                clicked_cards: [...state.clicked_cards, action.id_number]
+                clicked_cards: [...state.clicked_cards, card_id]
             }
-        }
-    } else if (action.type === "RESET_SELECTED_CARDS") {
-        return {
-            ...state,
-            clicked_cards: []
         }
     }
 
-    // if (state.clicked_cards.length === 3) {
-    //     for(let i=0; i < 3; i++) {
-    //         console.log(state.clicked_cards[i].);
-    //     }
-    // }
+    if (action.type === "RESET_SELECTED_CARDS") {
+        return {
+            clicked_cards: [],
+        }
+    }
     return state
 }

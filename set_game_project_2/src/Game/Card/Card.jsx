@@ -27,49 +27,41 @@ class Card extends React.Component {
         this.props.dispatch({ type: action, id_number: id })
     }
 
+    checkMatchingSet(action, cardA, cardB, cardC) {
+        this.props.dispatch({
+            type: action,
+            card_one: cardA,
+            card_two: cardB,
+            card_three: cardC
+        });
+    }
+
     createShapedCard(action) {
         this.props.dispatch({ type: action })
     }
 
     render() {
 
+
+        // Pull this logic out into a reducer ---> and build a set (cardA, cardB, cardC) that collects "sets" of cards
         if (this.props.selected_cards_from_state.clicked_cards.length === 3) {
             let cardA = this.props.selected_cards_from_state.clicked_cards[0]
             let cardB = this.props.selected_cards_from_state.clicked_cards[1]
             let cardC = this.props.selected_cards_from_state.clicked_cards[2]
 
-            if (cardA.shape === cardB.shape && cardA.shape === cardC.shape && cardB.shape === cardC.shape) {
-                if (cardA.color === cardB.color && cardA.color === cardC.color && cardB.color === cardC.color) {
-                    if (cardA.pattern === cardB.pattern && cardA.pattern === cardC.pattern && cardB.pattern === cardC.pattern) {
-                        console.log("MATCHING SET!!!");
-                    }
-                }
-            } else if (cardA.shape !== cardB.shape && cardA.shape !== cardC.shape && cardB.shape !== cardC.shape) {
-                if (cardA.color !== cardB.color && cardA.color !== cardC.color && cardB.color !== cardC.color) {
-                    if (cardA.pattern !== cardB.pattern && cardA.pattern !== cardC.pattern && cardB.pattern !== cardC.pattern) {
-                        console.log("MATCHING SET!!!");
-                    }
-                }
-            } else {
-                console.log("YOU SUCK")
+            this.checkMatchingSet("CHECK_MATCHING_SET", cardA, cardB, cardC);
+            console.log("Check Match:", this.props.ifMatched);
+
+            console.log("3 CARDS", this.props.selected_cards_from_state);
+
+            // Uses CheckMatchingSetReducer boolean logic to reset selected cards
+            // See ^ file to understand 'ifMatched' prop logic.
+            if (!this.props.ifMatched) {
                 this.resetCards("RESET_SELECTED_CARDS");
-                console.log(this.props.selected_cards_from_state);
             }
-
-            // USE THIS TO CHECK properties
-            // console.log(this.props.card_info.index);
-            // ifs
-
-
-            // console.log(this.props.selected_cards_from_state.clicked_cards[1]);
-            // for (let i = 0; i < 3; i++) {
-            //     console.log(this.props.selected_cards_from_state.clicked_cards[i]);
-            // }
         }
 
-
         if (this.state.shape === "circle") {
-
             let arr = []
             for (let i = 0; i < this.state.number; i++) {
                 arr.push(this.state.pattern)
@@ -95,9 +87,9 @@ class Card extends React.Component {
                 arr.push(this.state.pattern)
             }
             return (
-                <soan onClick={() => this.selectCard("SELECTED_CARD", this.props.card_info)}>
+                <span onClick={() => this.selectCard("SELECTED_CARD", this.props.card_info)}>
                     <Triangle num_shapes={arr} color={this.state.color} card_id={this.props.card_id.index}></Triangle>
-                </soan>
+                </span>
             )
         }
     }
@@ -112,6 +104,8 @@ let mapDispatchToProps = function (dispatch, props) {
 let mapStateToProps = function (state, props) {
     return {
         selected_cards_from_state: state.selected_cards,
+        sets: state.collected_sets.collected_sets,
+        ifMatched: state.collected_sets.matching_set_bool,
     }
 }
 

@@ -48,7 +48,7 @@ class Game extends React.Component {
                     <div className="card-container">
                         {
                             <div className="initial-cards">
-                                {this.props.deck_in_state.deck.slice(0, 12).map((card) => {
+                                {this.props.deck_in_state.game_board.map((card) => {
                                     return (
                                         <Card card_info={card} card_id={card} shape={card}></Card>
                                     );
@@ -69,9 +69,13 @@ let mapDispatchToProps = function (dispatch, props) {
 }
 
 let mapStateToProps = function (state, props) {
+    console.log("GAME: ", state);
+
     return {
         deck_in_state: state.starting_deck,
+        selected_cards_in_state: state.selected_cards,
         selected_card_bool: state.selected_card,
+        sets: state.collected_sets,
     }
 }
 
