@@ -1,7 +1,7 @@
 export default function (state = {
-    full_deck: [],
+    current_deck: [],
     game_board: [],
-    picked_pile: [],
+    // picked_pile: [],
     counter: 0,
 }, action) {
 
@@ -26,7 +26,7 @@ export default function (state = {
             for (const color of colors) {
                 for (const pattern of patterns) {
                     for (const number of numbers) {
-                        deck.push({ index, shape, color, pattern, number })
+                        deck.push({ index, number, color, pattern, shape })
                         index += 1
                     }
                 }
@@ -46,12 +46,15 @@ export default function (state = {
         // Remove cards from our deck and put into a 'picked deck' 
         //      --> tracks selected deck cards so there aren't any double pulls when adding more cards to the screen
         for (let i = 0; i < 12; i++) {
-            picked_cards.push(shuffled_deck.shift());
+            shuffled_deck.shift();
         }
 
-        console.log("Starting board", starting_board);
-        console.log("shuffled deck", shuffled_deck);
-        console.log("picked cards", picked_cards);
+        // ----------------------------------------------------------------------------------
+        // FIGURE OUT IF NEED TO HAVE A PICKED DECK -----------------------------------------
+        // ----------------------------------------------------------------------------------
+        // for (let i = 0; i < 12; i++) {
+        //     picked_cards.push(shuffled_deck.shift());
+        // }
 
         // Change of difficulty with if statement? ---> if action.easy { } else if action.medium { } else action.hard
 
@@ -60,17 +63,26 @@ export default function (state = {
 
         return {
             ...state,
-            full_deck: shuffled_deck,
+            current_deck: shuffled_deck,
             game_board: starting_board,
-            picked_pile: picked_cards,
+            // picked_pile: picked_cards,
             counter: 12,
         }
     } else if ("GET_THREE_NEW_CARDS") {
-        let indices = [];
-        for (let i = state.counter; i < state.counter + 3; i++) {
+        let new_cards = [];
 
+        if (state.current_deck.length !== 0) {
+            for (let i = 0; i < 3; i++) {
+                new_cards.push(state.current_deck[i]);
+                state.current_deck.shift();
+            }
+
+            return {
+                ...state,
+                current_deck: state.current_deck,
+                game_board: [...state.game_board, ...new_cards]
+            }
         }
-
     }
     return state
 }

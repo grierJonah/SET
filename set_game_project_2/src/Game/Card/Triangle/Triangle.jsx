@@ -23,7 +23,7 @@ export default class Circle extends React.Component {
                         <polygon
                             points={triangle_placement[i]}
                             fill={"url(#dashed_" + this.props.card_id + ")"}
-                            stroke={this.props.color} >
+                            stroke={this.props.color}>
                         </polygon >
                     </svg>
                 );
@@ -32,7 +32,7 @@ export default class Circle extends React.Component {
                     <polygon
                         points={triangle_placement[i]}
                         fill={this.props.color}
-                        stroke={this.props.color} >
+                        stroke={this.props.color}>
                     </polygon >
                 );
             } else {
@@ -40,7 +40,7 @@ export default class Circle extends React.Component {
                     <polygon
                         points={triangle_placement[i]}
                         fill='none'
-                        stroke={this.props.color} >
+                        stroke={this.props.color}>
                     </polygon >
                 );
             }

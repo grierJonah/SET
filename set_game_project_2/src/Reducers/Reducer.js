@@ -4,7 +4,7 @@ import SelectedCardReducer from './SelectedCardReducer';
 import CheckMatchingSetReducer from './CheckMatchingSetReducer';
 
 export default combineReducers({
-    starting_deck: NewGameReducer,
+    deck: NewGameReducer,
     selected_cards: SelectedCardReducer,
     collected_sets: CheckMatchingSetReducer,
 })

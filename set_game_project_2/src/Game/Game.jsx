@@ -26,7 +26,7 @@ class Game extends React.Component {
                     <div className="link-container">
                         <ul>
                             <button className="links" onClick={() => this.onLinkClick("NEW_GAME")}>New Game</button>
-                            <button className="links" onClick={() => this.onLinkClick("EXTRA_CARDS")}>Open 3 Cards</button>
+                            <button className="links" onClick={() => this.onLinkClick("GET_THREE_NEW_CARDS")}>Open 3 Cards</button>
                             <button className="links" onClick={() => this.onLinkClick("FIND_SET")}>Find Set</button>
                         </ul>
                     </div>
@@ -48,9 +48,9 @@ class Game extends React.Component {
                     <div className="card-container">
                         {
                             <div className="initial-cards">
-                                {this.props.deck_in_state.game_board.map((card) => {
+                                {this.props.deck_in_state.game_board.map((card, value) => {
                                     return (
-                                        <Card card_info={card} card_id={card} shape={card}></Card>
+                                        <Card key={value} card_info={card} card_id={card} shape={card}></Card>
                                     );
                                 })}
                             </div>
@@ -72,7 +72,7 @@ let mapStateToProps = function (state, props) {
     console.log("GAME: ", state);
 
     return {
-        deck_in_state: state.starting_deck,
+        deck_in_state: state.deck,
         selected_cards_in_state: state.selected_cards,
         selected_card_bool: state.selected_card,
         sets: state.collected_sets,

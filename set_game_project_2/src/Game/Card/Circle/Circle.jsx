@@ -42,7 +42,7 @@ export default class Circle extends React.Component {
                         r="20"
                         fill='none'
                         stroke={this.props.color}>
-                    </circle>
+                    </circle >
                 );
             }
         }
