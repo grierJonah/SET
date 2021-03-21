@@ -14,8 +14,6 @@ export default function (state = {
             if (card_one.color === card_two.color && card_one.color === card_three.color && card_two.color === card_three.color) {
                 if (card_one.pattern === card_two.pattern && card_one.pattern === card_three.pattern && card_two.pattern === card_three.pattern) {
                     console.log("SAME MATCHING SET!!!");
-
-
                     return {
                         matched_set_bool: true,
                         collected_sets: state.collected_sets.add({ card_one, card_two, card_three }),
@@ -27,7 +25,6 @@ export default function (state = {
             if (card_one.color !== card_two.color && card_one.color !== card_three.color && card_two.color !== card_three.color) {
                 if (card_one.pattern !== card_two.pattern && card_one.pattern !== card_three.pattern && card_two.pattern !== card_three.pattern) {
                     console.log("DIFF MATCHING SET!!!");
-
                     return {
                         matched_set_bool: true,
                         collected_sets: state.collected_sets.add({ card_one, card_two, card_three }),
@@ -36,11 +33,9 @@ export default function (state = {
                 }
             }
         } else {
-            console.log("YOU SUCK, NO MATCHING SET")
-
-            // Here we are using a boolean to dynamically set what our Card 'render' logic will do. 
-            // See line 57 in card. It pulls from this reducer to check if the 3-pair cards are a matching set or not. 
-            // If they are not (as we can see 'false') then the reset_selected_cards reducer is utilized
+            // Here we are using a boolean to dynamically set what our Card.jsx 'render' function logic will do. 
+            // See line 57 in Card.jsx. It pulls from this reducer to check if the 3-pair cards are a matching set or not. 
+            // If they are not a matching set (as we can see 'false') then the reset_selected_cards reducer is utilized
             return {
                 matched_set_bool: false,
             }
