@@ -52,8 +52,6 @@ class Card extends React.Component {
             this.checkMatchingSet("CHECK_MATCHING_SET", cardA, cardB, cardC);
             console.log("Check Match:", this.props.ifMatched);
 
-            console.log("3 CARDS", this.props.selected_cards_from_state);
-
             // Uses CheckMatchingSetReducer boolean logic to reset selected cards
             // See ^ file to understand 'ifMatched' prop logic.
             if (!this.props.ifMatched) {

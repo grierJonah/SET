@@ -34,7 +34,7 @@ class Game extends React.Component {
                         <ul>
                             <li>Cards in deck:</li>
                             <li>Game Duration:</li>
-                            <li>Sets found: </li>
+                            <li>Sets found: {this.props.sets.num_sets}</li>
                             <li>Score: </li>
                         </ul>
                     </div>
