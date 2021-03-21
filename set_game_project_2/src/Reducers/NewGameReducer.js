@@ -2,7 +2,7 @@ export default function (state = {
     current_deck: [],
     game_board: [],
     // picked_pile: [],
-    counter: 0,
+    counter: 12,
 }, action) {
 
     let colors = ['red', 'blue', 'green'];
@@ -36,7 +36,7 @@ export default function (state = {
         // randomize ordering of the svg objects
         let shuffled_deck = shuffle(deck);
         let starting_board = [];
-        let picked_cards = [];
+        // let picked_cards = [];
 
         // Add to our starting board
         for (let i = 0; i < 12; i++) {
@@ -48,33 +48,21 @@ export default function (state = {
         for (let i = 0; i < 12; i++) {
             shuffled_deck.shift();
         }
-
-        // ----------------------------------------------------------------------------------
-        // FIGURE OUT IF NEED TO HAVE A PICKED DECK -----------------------------------------
-        // ----------------------------------------------------------------------------------
-        // for (let i = 0; i < 12; i++) {
-        //     picked_cards.push(shuffled_deck.shift());
-        // }
-
-        // Change of difficulty with if statement? ---> if action.easy { } else if action.medium { } else action.hard
-
-        // in addition to the 81 card deck, lets return a list of indices that are being used for the first 12. That way we know we 
-        // won't pull 3 more that are already listed in the first 12 by checking that the next 3 aren't already in the "pulled list"
-
+        console.log("Current Deck", state.current_deck);
         return {
             ...state,
             current_deck: shuffled_deck,
             game_board: starting_board,
             // picked_pile: picked_cards,
-            counter: 12,
         }
     } else if ("GET_THREE_NEW_CARDS") {
         let new_cards = [];
 
-        if (state.current_deck.length !== 0) {
+        if (state.counter <= 9) {
             for (let i = 0; i < 3; i++) {
                 new_cards.push(state.current_deck[i]);
                 state.current_deck.shift();
+                state.counter += 1
             }
 
             return {
@@ -83,6 +71,7 @@ export default function (state = {
                 game_board: [...state.game_board, ...new_cards]
             }
         }
+        return state;
     }
-    return state
+    return state;
 }
