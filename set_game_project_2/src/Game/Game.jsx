@@ -17,6 +17,7 @@ class Game extends React.Component {
     }
 
     render() {
+        console.log(this.props);
         return (
             <div className="main-body-container">
                 <div className="header-container">
@@ -32,7 +33,7 @@ class Game extends React.Component {
                     </div>
                     <div className="game-statistics">
                         <ul>
-                            <li>Cards in deck:</li>
+                            <li>Cards in deck: {this.props.deck_in_state.current_deck.length}</li>
                             <li>Game Duration:</li>
                             <li>Sets found: {this.props.sets.num_sets}</li>
                             <li>Score: </li>
@@ -69,8 +70,6 @@ let mapDispatchToProps = function (dispatch, props) {
 }
 
 let mapStateToProps = function (state, props) {
-    console.log("GAME: ", state);
-
     return {
         deck_in_state: state.deck,
         selected_cards_in_state: state.selected_cards,

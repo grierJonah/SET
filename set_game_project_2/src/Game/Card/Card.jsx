@@ -49,12 +49,13 @@ class Card extends React.Component {
             let cardB = this.props.selected_cards_from_state.clicked_cards[1]
             let cardC = this.props.selected_cards_from_state.clicked_cards[2]
 
+
             this.checkMatchingSet("CHECK_MATCHING_SET", cardA, cardB, cardC);
-            console.log("Check Match:", this.props.ifMatched);
+            // console.log("Check Match:", this.props.sets);
 
             // Uses CheckMatchingSetReducer boolean logic to reset selected cards
             // See ^ file to understand 'ifMatched' prop logic.
-            if (!this.props.ifMatched) {
+            if (!this.props.set_match) {
                 this.resetCards("RESET_SELECTED_CARDS");
             }
         }
@@ -103,7 +104,7 @@ let mapStateToProps = function (state, props) {
     return {
         selected_cards_from_state: state.selected_cards,
         sets: state.collected_sets.collected_sets,
-        ifMatched: state.collected_sets.matching_set_bool,
+        set_match: state.collected_sets.matched_set_bool,
     }
 }
 
