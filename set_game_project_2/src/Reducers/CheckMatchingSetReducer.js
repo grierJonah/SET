@@ -45,6 +45,7 @@ export default function (state = {
             // See line 57 in Card.jsx. It pulls from this reducer to check if the 3-pair cards are a matching set or not. 
             // If they are not a matching set (as we can see 'false') then the reset_selected_cards reducer is utilized
             return {
+                ...state,
                 matched_set_bool: state.matched_set_bool,
             }
         }

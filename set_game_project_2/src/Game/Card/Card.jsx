@@ -9,29 +9,23 @@ import Triangle from './Triangle/Triangle';
 
 class Card extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            color: props.shape.color,
-            shape: props.shape.shape,
-            number: props.shape.number,
-            pattern: props.shape.pattern,
-        }
-    }
-
+    // DISPATCH --> NewGameReducer.js
     removeCards(action, deck, cards) {
         console.log("Remove cards dispatch:", this.props)
         this.props.dispatch({ type: action, current_deck: deck, clicked_cards: cards });
     }
 
+    // DISPATCH --> SelectedCardReducer.js
     resetCards(action) {
         this.props.dispatch({ type: action })
     }
 
+    // DISPATCH --> SelectedCardReducer.js
     selectCard(action, id) {
         this.props.dispatch({ type: action, id_number: id })
     }
 
+    // DISPATCH --> CheckMatchingSetReducer.js
     checkMatchingSet(action, cardA, cardB, cardC) {
         this.props.dispatch({
             type: action,
@@ -41,11 +35,13 @@ class Card extends React.Component {
         });
     }
 
-    createShapedCard(action) {
-        this.props.dispatch({ type: action })
-    }
-
     render() {
+
+        const card_index = this.props.card_info.index;
+        const card_shape = this.props.card_info.shape;
+        const card_color = this.props.card_info.color;
+        const card_number = this.props.card_info.number;
+        const card_pattern = this.props.card_info.pattern;
 
 
         // Pull this logic out into a reducer ---> and build a set (cardA, cardB, cardC) that collects "sets" of cards
@@ -74,34 +70,33 @@ class Card extends React.Component {
             }
         }
 
-        if (this.state.shape === "circle") {
-            let arr = []
-            for (let i = 0; i < this.state.number; i++) {
-                arr.push(this.state.pattern)
+        let shape_array = [];
+
+        if (card_shape === "circle") {
+            for (let i = 0; i < card_number; i++) {
+                shape_array.push(card_pattern)
             }
             return (
                 <span onClick={() => this.selectCard("SELECTED_CARD", this.props.card_info)}>
-                    <Circle num_shapes={arr} color={this.state.color} card_id={this.props.card_id.index}></Circle>
+                    <Circle num_shapes={shape_array} color={card_color} card_id={card_index}></Circle>
                 </span>
             )
-        } else if (this.state.shape === "square") {
-            let arr = []
-            for (let i = 0; i < this.state.number; i++) {
-                arr.push(this.state.pattern)
+        } else if (card_shape === "square") {
+            for (let i = 0; i < card_number; i++) {
+                shape_array.push(card_pattern)
             }
             return (
                 <span onClick={() => this.selectCard("SELECTED_CARD", this.props.card_info)}>
-                    <Square num_shapes={arr} color={this.state.color} card_id={this.props.card_id.index}></Square>
+                    <Square num_shapes={shape_array} color={card_color} card_id={card_index}></Square>
                 </span>
             )
         } else {
-            let arr = []
-            for (let i = 0; i < this.state.number; i++) {
-                arr.push(this.state.pattern)
+            for (let i = 0; i < card_number; i++) {
+                shape_array.push(card_pattern)
             }
             return (
                 <span onClick={() => this.selectCard("SELECTED_CARD", this.props.card_info)}>
-                    <Triangle num_shapes={arr} color={this.state.color} card_id={this.props.card_id.index}></Triangle>
+                    <Triangle num_shapes={shape_array} color={card_color} card_id={card_index}></Triangle>
                 </span>
             )
         }
