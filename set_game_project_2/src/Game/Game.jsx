@@ -18,6 +18,10 @@ class Game extends React.Component {
         this.props.dispatch({ type: action })
     }
 
+    getCardsLink(action, obj) {
+        this.props.dispatch({ type: action, cards: obj });
+    }
+
     // DISPATCH --> SelectedCardReducer.js
     onCardClick(action, array) {
         this.props.dispatch({ type: action, deck: array })
@@ -50,9 +54,7 @@ class Game extends React.Component {
     }
 
     render() {
-
-        console.log(this.props.deck_in_state);
-
+        // console.log(this.props.deck_in_state);
         if (this.props.selected_cards_in_state.clicked_cards.length === 3) {
 
             let curr_deck = this.props.deck_in_state;
@@ -75,8 +77,6 @@ class Game extends React.Component {
                 this.removeCards("GAMEBOARD_REMOVE", curr_deck, clicked_cards);
 
                 this.resetCards("RESET_SELECTED_CARDS");
-
-                this.addNewCards();
             }
             else {
                 this.setState({
@@ -98,7 +98,7 @@ class Game extends React.Component {
                     <div className="link-container">
                         <ul>
                             <button className="links" onClick={() => this.onLinkClick("NEW_GAME")}>New Game</button>
-                            <button className="links" onClick={() => this.onLinkClick("GET_THREE_NEW_CARDS")}>Open 3 Cards</button>
+                            <button className="links" onClick={() => this.getCardsLink("GET_THREE_NEW_CARDS", this.props)}>Open 3 Cards</button>
                             <button className="links" onClick={() => this.onLinkClick("FIND_SET")}>Find Set</button>
                         </ul>
                     </div>

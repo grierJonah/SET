@@ -109,12 +109,14 @@ export default function (state = {
     if (action.type === "GET_THREE_NEW_CARDS") {
         let new_cards = [];
 
+        console.log(action.cards.deck_in_state.current_deck);
+
         if (state.counter <= 9) {
-            for (let i = 0; i < 3; i++) {
-                new_cards.push(state.current_deck[i]);
-                state.current_deck.shift();
-                state.counter += 1
-            }
+            // for (let i = 0; i < 3; i++) {
+            //     new_cards.push(state.current_deck[i]);
+            //     state.current_deck.shift();
+            //     state.counter += 1
+            // }
 
             return {
                 ...state,
@@ -145,6 +147,7 @@ export default function (state = {
         }
 
         return {
+            ...state,
             game_board: new_game_board,
             counter: new_game_board.length,
         }
