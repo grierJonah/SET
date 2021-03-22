@@ -76,7 +76,7 @@ class Game extends React.Component {
 
                 this.resetCards("RESET_SELECTED_CARDS");
 
-                console.log(this.state.wasNotSeen);
+                this.addNewCards();
             }
             else {
                 this.setState({

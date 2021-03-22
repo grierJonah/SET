@@ -134,32 +134,17 @@ export default function (state = {
         let card_three = clicked_cards[2];
 
         let game_board = deck.game_board;
-        let current_deck = deck.current_deck;
 
         const remove_cards = [card_one.index, card_two.index, card_three.index]
 
         let new_game_board = deck.game_board;
-        let new_deck = deck.current_deck;
-
-        console.log("gmbrd", new_game_board);
-        console.log("deck", new_deck);
-
 
         for (let i = 0; i < remove_cards.length; i++) {
             let card = findCard(game_board, remove_cards[i]);
-            let card2 = findCard(current_deck, remove_cards[i])
-            console.log(card2);
-
             new_game_board = removeCard(new_game_board, card);
-            // new_deck = removeCard(new_deck, card2);
         }
 
-        // Not updating the new_deck to remove the cards
-        console.log("gameboard should be smaller?", new_game_board);
-        console.log("deck should be smaller?", new_deck);
-
         return {
-            deck: new_deck,
             game_board: new_game_board,
             counter: new_game_board.length,
         }
