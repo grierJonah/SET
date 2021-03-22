@@ -9,6 +9,7 @@ class Game extends React.Component {
         super(props);
         this.state = {
             wasNotSeen: true,
+            matches_: this.props.matches,
         }
     }
 
@@ -53,9 +54,16 @@ class Game extends React.Component {
         this.props.dispatch({ type: action, current_deck: deck, clicked_cards: cards });
     }
 
+    toggleSeen() {
+        this.setState({
+            wasNotSeen: !this.state.wasNotSeen,
+        })
+    }
+
     render() {
-        // console.log(this.props.deck_in_state);
+
         if (this.props.selected_cards_in_state.clicked_cards.length === 3) {
+            console.log("HITTING HERE SECOND");
 
             let curr_deck = this.props.deck_in_state;
 
@@ -64,11 +72,11 @@ class Game extends React.Component {
             let cardC = this.props.selected_cards_in_state.clicked_cards[2]
 
             this.checkMatchingSet("CHECK_MATCHING_SET", curr_deck, cardA, cardB, cardC);
+            console.log("Accessing Props:", this.props.matches);
 
-            if (this.props.matches && this.state.wasNotSeen) {
-                this.setState({
-                    wasNotSeen: false,
-                })
+
+            if (this.props.matches.matched_set_bool && this.state.wasNotSeen) {
+                this.toggleSeen();
                 console.log("Matched 3 cards");
 
                 let curr_deck = this.props.deck_in_state;
@@ -79,9 +87,7 @@ class Game extends React.Component {
                 this.resetCards("RESET_SELECTED_CARDS");
             }
             else {
-                this.setState({
-                    wasNotSeen: true,
-                })
+                this.toggleSeen();
                 this.resetCards("RESET_SELECTED_CARDS");
             }
         }
@@ -141,6 +147,7 @@ let mapDispatchToProps = function (dispatch, props) {
 }
 
 let mapStateToProps = function (state, props) {
+    console.log("Map State To Props:", state.collected_sets)
     return {
         deck_in_state: state.deck,
         selected_cards_in_state: state.selected_cards,

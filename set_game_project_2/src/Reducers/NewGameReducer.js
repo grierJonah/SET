@@ -25,6 +25,7 @@ export default function (state = {
                 for (let k = j + 1; k < 12 - 2; k++) {
                     let new_arr = [array[i], array[j], array[k]];
 
+                    // using modulo 3 since there are 3 indices yet 12 board slots (runs into index out of bounds error)
                     // Same Shape, Color, Pattern
                     if (new_arr[i % 3].shape === new_arr[j % 3].shape && new_arr[i % 3].shape === new_arr[k % 3].shape && new_arr[j % 3].shape === new_arr[k % 3].shape) {
                         if (new_arr[i % 3].color === new_arr[j % 3].color && new_arr[i % 3].color === new_arr[k % 3].color && new_arr[j % 3].color === new_arr[k % 3].color) {
@@ -109,14 +110,15 @@ export default function (state = {
     if (action.type === "GET_THREE_NEW_CARDS") {
         let new_cards = [];
 
-        console.log(action.cards.deck_in_state.current_deck);
+        let current_deck = action.cards.deck_in_state.current_deck;
 
         if (state.counter <= 9) {
-            // for (let i = 0; i < 3; i++) {
-            //     new_cards.push(state.current_deck[i]);
-            //     state.current_deck.shift();
-            //     state.counter += 1
-            // }
+            for (let i = 0; i < 3; i++) {
+                new_cards.push(current_deck[i]);
+                current_deck.shift();
+                state.counter += 1
+            }
+            console.log(new_cards);
 
             return {
                 ...state,
