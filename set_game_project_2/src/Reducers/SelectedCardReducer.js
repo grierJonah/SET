@@ -6,7 +6,7 @@ export default function (state = {
     let cards = []
     let card_id = action.id_number;
 
-    if (action.type === 'SELECTED_CARD') {
+    if (action.type === "SELECTED_CARD") {
         cards.push(card_id)
 
         // check size is less than or equal to 3
@@ -23,6 +23,10 @@ export default function (state = {
         return {
             clicked_cards: [],
         }
+    }
+
+    if (action.type === "CLICKED") {
+        console.log("clicked here:", action.card);
     }
     return state
 }

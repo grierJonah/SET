@@ -19,6 +19,11 @@ class Card extends React.Component {
         }
     }
 
+    removeCards(action, deck, cards) {
+        console.log("Remove cards dispatch:", this.props)
+        this.props.dispatch({ type: action, current_deck: deck, clicked_cards: cards });
+    }
+
     resetCards(action) {
         this.props.dispatch({ type: action })
     }
@@ -51,11 +56,20 @@ class Card extends React.Component {
 
 
             this.checkMatchingSet("CHECK_MATCHING_SET", cardA, cardB, cardC);
-            // console.log("Check Match:", this.props.sets);
 
             // Uses CheckMatchingSetReducer boolean logic to reset selected cards
             // See ^ file to understand 'ifMatched' prop logic.
-            if (!this.props.set_match) {
+            if (this.props.matched) {
+                console.log("Matched 3 cards");
+
+                let curr_deck = this.props.current_deck;
+                let clicked_cards = this.props.selected_cards_from_state.clicked_cards;
+
+                this.removeCards("GAMEBOARD_REMOVE", curr_deck, clicked_cards);
+
+                this.resetCards("RESET_SELECTED_CARDS");
+            } else {
+                console.log("We have not matched 3 cards");
                 this.resetCards("RESET_SELECTED_CARDS");
             }
         }
@@ -104,7 +118,8 @@ let mapStateToProps = function (state, props) {
     return {
         selected_cards_from_state: state.selected_cards,
         sets: state.collected_sets.collected_sets,
-        set_match: state.collected_sets.matched_set_bool,
+        matched: state.collected_sets.matched_set_bool,
+        current_deck: state.deck,
     }
 }
 

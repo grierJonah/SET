@@ -16,8 +16,12 @@ class Game extends React.Component {
         this.props.dispatch({ type: action, deck: array })
     }
 
+    // DISPATCH --> SelectedCardReducer.js
+    clickedCard(action, card) {
+        this.props.dispatch({ type: action, card: card });
+    }
+
     render() {
-        console.log(this.props);
         return (
             <div className="main-body-container">
                 <div className="header-container">
@@ -51,7 +55,7 @@ class Game extends React.Component {
                             <div className="initial-cards">
                                 {this.props.deck_in_state.game_board.map((card, value) => {
                                     return (
-                                        <Card key={value} card_info={card} card_id={card} shape={card}></Card>
+                                        <Card key={value} onClick={() => this.clickedCard("CLICKED", card)} card_info={card} card_id={card} shape={card}></Card>
                                     );
                                 })}
                             </div>

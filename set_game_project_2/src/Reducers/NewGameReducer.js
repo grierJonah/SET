@@ -100,7 +100,9 @@ export default function (state = {
             game_board: starting_board,
             // picked_pile: picked_cards,
         }
-    } else if ("GET_THREE_NEW_CARDS") {
+    }
+
+    if (action.type === "GET_THREE_NEW_CARDS") {
         let new_cards = [];
 
         if (state.counter <= 9) {
@@ -117,6 +119,13 @@ export default function (state = {
             }
         }
         return state;
+    }
+
+    if (action.type === "GAMEBOARD_REMOVE") {
+        let deck = action.current_deck;
+        let clicked_cards = action.clicked_cards;
+        console.log("Current Deck:", deck);
+        console.log("Clicked Cards", clicked_cards);
     }
     return state;
 }

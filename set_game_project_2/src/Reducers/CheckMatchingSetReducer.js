@@ -15,10 +15,14 @@ export default function (state = {
             if (card_one.color === card_two.color && card_one.color === card_three.color && card_two.color === card_three.color) {
                 if (card_one.pattern === card_two.pattern && card_one.pattern === card_three.pattern && card_two.pattern === card_three.pattern) {
                     console.log("SAME MATCHING SET!!!");
+                    let new_set = { card_one, card_two, card_three }
+                    console.log(new_set);
+
                     return {
+                        ...state,
                         matched_set_bool: matched,
-                        collected_sets: state.collected_sets.add(card_one, card_two, card_three),
-                        num_sets: state.num_sets + 1
+                        collected_sets: state.collected_sets.add(new_set),
+                        num_sets: state.collected_sets.length
                     }
                 }
             }
@@ -26,10 +30,13 @@ export default function (state = {
             if (card_one.color !== card_two.color && card_one.color !== card_three.color && card_two.color !== card_three.color) {
                 if (card_one.pattern !== card_two.pattern && card_one.pattern !== card_three.pattern && card_two.pattern !== card_three.pattern) {
                     console.log("DIFF MATCHING SET!!!");
+                    let new_set = { card_one, card_two, card_three }
+                    console.log(new_set);
                     return {
+                        ...state,
                         matched_set_bool: matched,
-                        collected_sets: state.collected_sets.add(card_one, card_two, card_three),
-                        num_sets: state.num_sets + 1,
+                        collected_sets: state.collected_sets.add(new_set),
+                        num_sets: state.collected_sets.length
                     }
                 }
             }
