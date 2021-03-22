@@ -25,7 +25,8 @@ export default function (state = {
         }
     }
 
-    if (action.type === "CLICKED") {
+    if (action.type === "CLICKED_CARDS") {
+        console.log("clicked");
         console.log(action.card);
     }
     return state

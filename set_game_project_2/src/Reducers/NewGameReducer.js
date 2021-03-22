@@ -1,7 +1,6 @@
 export default function (state = {
     current_deck: [],
     game_board: [],
-    // picked_pile: [],
     counter: 12,
 }, action) {
 
@@ -52,6 +51,14 @@ export default function (state = {
         }
     }
 
+    function findCard(gameboard, card_index) {
+        return gameboard.find((obj) => obj.index === card_index);
+    }
+
+    function removeCard(gameboard, card) {
+        return gameboard.filter((c) => c.index !== card.index);
+    }
+
 
     if (action.type === "NEW_GAME") {
         let index = 0;
@@ -59,7 +66,7 @@ export default function (state = {
             for (const color of colors) {
                 for (const pattern of patterns) {
                     for (const shape of shapes) {
-                        deck.push({ index, number, color, pattern, shape })
+                        deck.push({ index, number, pattern, color, shape })
                         index += 1
                     }
                 }
@@ -73,7 +80,6 @@ export default function (state = {
         let flag = true;
         while (flag) {
             if (checkForSet(shuffled_deck)) {
-                console.log("Found set!", shuffled_deck);
                 flag = false;
                 break;
             }
@@ -82,7 +88,6 @@ export default function (state = {
         }
 
         let starting_board = [];
-        // let picked_cards = [];
 
         // Add to our starting board
         for (let i = 0; i < 12; i++) {
@@ -98,7 +103,6 @@ export default function (state = {
             ...state,
             current_deck: shuffled_deck,
             game_board: starting_board,
-            // picked_pile: picked_cards,
         }
     }
 
@@ -124,8 +128,41 @@ export default function (state = {
     if (action.type === "GAMEBOARD_REMOVE") {
         let deck = action.current_deck;
         let clicked_cards = action.clicked_cards;
-        console.log("Current Deck:", deck);
-        console.log("Clicked Cards", clicked_cards);
+
+        let card_one = clicked_cards[0];
+        let card_two = clicked_cards[1];
+        let card_three = clicked_cards[2];
+
+        let game_board = deck.game_board;
+        let current_deck = deck.current_deck;
+
+        const remove_cards = [card_one.index, card_two.index, card_three.index]
+
+        let new_game_board = deck.game_board;
+        let new_deck = deck.current_deck;
+
+        console.log("gmbrd", new_game_board);
+        console.log("deck", new_deck);
+
+
+        for (let i = 0; i < remove_cards.length; i++) {
+            let card = findCard(game_board, remove_cards[i]);
+            let card2 = findCard(current_deck, remove_cards[i])
+            console.log(card2);
+
+            new_game_board = removeCard(new_game_board, card);
+            // new_deck = removeCard(new_deck, card2);
+        }
+
+        // Not updating the new_deck to remove the cards
+        console.log("gameboard should be smaller?", new_game_board);
+        console.log("deck should be smaller?", new_deck);
+
+        return {
+            deck: new_deck,
+            game_board: new_game_board,
+            counter: new_game_board.length,
+        }
     }
     return state;
 }

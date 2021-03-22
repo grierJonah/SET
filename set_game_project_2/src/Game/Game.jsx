@@ -5,6 +5,13 @@ import Card from './Card/Card';
 
 class Game extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            wasNotSeen: true,
+        }
+    }
+
 
     // DISPATCH --> NewGameReducer.js
     onLinkClick(action) {
@@ -21,7 +28,67 @@ class Game extends React.Component {
         this.props.dispatch({ type: action, card: card });
     }
 
+    // DISPATCH --> CheckMatchingSetReducer.js
+    checkMatchingSet(action, curr_deck, cardA, cardB, cardC) {
+        this.props.dispatch({
+            type: action,
+            current_deck: curr_deck,
+            card_one: cardA,
+            card_two: cardB,
+            card_three: cardC
+        });
+    }
+
+    // DISPATCH --> SelectedCardReducer.js
+    resetCards(action) {
+        this.props.dispatch({ type: action })
+    }
+
+    // DISPATCH --> NewGameReducer.js
+    removeCards(action, deck, cards) {
+        this.props.dispatch({ type: action, current_deck: deck, clicked_cards: cards });
+    }
+
     render() {
+
+        console.log(this.props.deck_in_state);
+
+        if (this.props.selected_cards_in_state.clicked_cards.length === 3) {
+
+            let curr_deck = this.props.deck_in_state;
+
+            let cardA = this.props.selected_cards_in_state.clicked_cards[0]
+            let cardB = this.props.selected_cards_in_state.clicked_cards[1]
+            let cardC = this.props.selected_cards_in_state.clicked_cards[2]
+
+            this.checkMatchingSet("CHECK_MATCHING_SET", curr_deck, cardA, cardB, cardC);
+
+            if (this.props.matches && this.state.wasNotSeen) {
+                this.setState({
+                    wasNotSeen: false,
+                })
+                console.log("Matched 3 cards");
+
+                let curr_deck = this.props.deck_in_state;
+                let clicked_cards = this.props.selected_cards_in_state.clicked_cards;
+
+                this.removeCards("GAMEBOARD_REMOVE", curr_deck, clicked_cards);
+
+                this.resetCards("RESET_SELECTED_CARDS");
+
+                console.log(this.state.wasNotSeen);
+            }
+            else {
+                this.setState({
+                    wasNotSeen: true,
+                })
+                this.resetCards("RESET_SELECTED_CARDS");
+            }
+        }
+
+        // {this.props.deck_in_state.current_deck.length}
+        // onClick={() => this.clickedCard("CLICKED_CARD", card)}
+
         return (
             <div className="main-body-container">
                 <div className="header-container">
@@ -37,9 +104,9 @@ class Game extends React.Component {
                     </div>
                     <div className="game-statistics">
                         <ul>
-                            <li>Cards in deck: {this.props.deck_in_state.current_deck.length}</li>
+                            <li>Cards in deck: </li>
                             <li>Game Duration:</li>
-                            <li>Sets found: {this.props.sets.num_sets}</li>
+                            <li>Sets found: {this.props.matches.num_sets}</li>
                             <li>Score: </li>
                         </ul>
                     </div>
@@ -55,7 +122,7 @@ class Game extends React.Component {
                             <div className="initial-cards">
                                 {this.props.deck_in_state.game_board.map((card, value) => {
                                     return (
-                                        <Card key={value} onClick={() => this.clickedCard("CLICKED", card)} card_info={card} card_id={card} shape={card}></Card>
+                                        <Card key={value} card_info={card} card_id={card} shape={card}></Card>
                                     );
                                 })}
                             </div>
@@ -78,7 +145,7 @@ let mapStateToProps = function (state, props) {
         deck_in_state: state.deck,
         selected_cards_in_state: state.selected_cards,
         selected_card_bool: state.selected_card,
-        sets: state.collected_sets,
+        matches: state.collected_sets,
     }
 }
 
