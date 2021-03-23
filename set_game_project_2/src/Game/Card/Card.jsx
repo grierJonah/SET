@@ -63,12 +63,9 @@ let mapDispatchToProps = function (dispatch, props) {
 }
 
 let mapStateToProps = function (state, props) {
+    console.log(state.selected_cards.clicked_cards);
     return {
         selected_cards_from_state: state.selected_cards,
-        sets: state.collected_sets,
-        // sets: state.collected_sets.collected_sets,
-        // matched: state.collected_sets.matched_set_bool,
-        current_deck: state.deck,
     }
 }
 

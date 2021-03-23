@@ -12,3 +12,11 @@
 .game-card:hover {
     background-color: grey;
 }
+
+.game-card:active {
+    background-color: black;
+}
+
+.game-card:focus {
+    background-color: black;
+}

@@ -1,20 +1,17 @@
 export default function (state = {
     clicked_cards: [],
-
 }, action) {
 
-    let cards = []
     let card_id = action.id_number;
 
     if (action.type === "SELECTED_CARD") {
-        cards.push(card_id)
 
         // check size is less than or equal to 3
-        // check if card is already in list
+        // check if card is already not already in list
         if (state.clicked_cards.length < 3 && (state.clicked_cards.indexOf(card_id) === -1)) {
             return {
                 ...state,
-                clicked_cards: [...state.clicked_cards, card_id]
+                clicked_cards: [...state.clicked_cards, card_id],
             }
         }
     }
@@ -23,6 +20,7 @@ export default function (state = {
         console.log("Resetting selected cards...");
         return {
             clicked_cards: [],
+            background_color: '',
         }
     }
 

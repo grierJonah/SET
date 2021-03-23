@@ -6,7 +6,6 @@ export default function (state = {
     num_sets: 0,
 }, action) {
 
-    const game_board = action.game_board;
     const card_one = action.card_one;
     const card_two = action.card_two;
     const card_three = action.card_three;
