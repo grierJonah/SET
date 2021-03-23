@@ -9,7 +9,7 @@ class Game extends React.Component {
         super(props);
         this.state = {
             wasNotSeen: true,
-            matches_: this.props.matches,
+            card_match: false,
         }
     }
 
@@ -63,40 +63,38 @@ class Game extends React.Component {
     render() {
 
         if (this.props.selected_cards_in_state.clicked_cards.length === 3) {
-            console.log("HITTING HERE SECOND");
-
             let curr_deck = this.props.deck_in_state;
 
-            let cardA = this.props.selected_cards_in_state.clicked_cards[0]
-            let cardB = this.props.selected_cards_in_state.clicked_cards[1]
-            let cardC = this.props.selected_cards_in_state.clicked_cards[2]
+            let cardA = this.props.selected_cards_in_state.clicked_cards[0];
+            let cardB = this.props.selected_cards_in_state.clicked_cards[1];
+            let cardC = this.props.selected_cards_in_state.clicked_cards[2];
 
             this.checkMatchingSet("CHECK_MATCHING_SET", curr_deck, cardA, cardB, cardC);
             console.log("Accessing Props:", this.props.matches);
+            let prevProps = this.props.matches;
 
+            // if (this.props.matches.matched_set_bool && this.state.wasNotSeen) {
+            //     // this.toggleSeen();
+            //     console.log("Matched 3 cards");
 
-            if (this.props.matches.matched_set_bool && this.state.wasNotSeen) {
-                this.toggleSeen();
-                console.log("Matched 3 cards");
+            //     let curr_deck = this.props.deck_in_state;
+            //     let clicked_cards = this.props.selected_cards_in_state.clicked_cards;
 
-                let curr_deck = this.props.deck_in_state;
-                let clicked_cards = this.props.selected_cards_in_state.clicked_cards;
+            //     this.removeCards("GAMEBOARD_REMOVE", curr_deck, clicked_cards);
 
-                this.removeCards("GAMEBOARD_REMOVE", curr_deck, clicked_cards);
-
-                this.resetCards("RESET_SELECTED_CARDS");
-            }
-            else {
-                this.toggleSeen();
-                this.resetCards("RESET_SELECTED_CARDS");
-            }
+            //     this.resetCards("RESET_SELECTED_CARDS");
+            // }
+            // else {
+            //     // this.toggleSeen();
+            //     this.resetCards("RESET_SELECTED_CARDS");
+            // }
         }
 
         // {this.props.deck_in_state.current_deck.length}
         // onClick={() => this.clickedCard("CLICKED_CARD", card)}
 
         return (
-            <div className="main-body-container">
+            <div className="main-body-container" >
                 <div className="header-container">
                     <h1 id="inner-game-title">SET</h1>
                 </div>
