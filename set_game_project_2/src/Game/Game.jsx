@@ -83,9 +83,9 @@ class Game extends React.Component {
                     </div>
                     <div className="game-statistics">
                         <ul>
-                            <li>Cards in deck: </li>
+                            <li>Cards in deck: {this.props.deck_in_state.current_deck.length}</li>
                             <li>Game Duration:</li>
-                            <li>Sets found: </li>
+                            <li>Sets found: {this.props.deck_in_state.num_sets} </li>
                             <li>Score: </li>
                         </ul>
                     </div>

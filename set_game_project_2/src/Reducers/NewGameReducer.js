@@ -111,6 +111,7 @@ export default function (state = {
             ...state,
             current_deck: shuffled_deck,
             game_board: starting_board,
+            num_sets: 0,
         }
     }
 
@@ -171,8 +172,8 @@ export default function (state = {
 
                     let add_new_set = { card_one, card_two, card_three }
 
-                    let old_game_board = deck.game_board;
-                    let new_game_board = deck.game_board;
+                    let old_game_board = action.game_map.game_board;
+                    let new_game_board = action.game_map.game_board;
 
                     let remove_cards = [card_one.index, card_two.index, card_three.index]
 
@@ -220,16 +221,6 @@ export default function (state = {
         } else {
             console.log("No matches found");
         }
-
-        // else {
-        //     // Here we are using a boolean to dynamically set what our Card.jsx 'render' function logic will do. 
-        //     // See line 57 in Card.jsx. It pulls from this reducer to check if the 3-pair cards are a matching set or not. 
-        //     // If they are not a matching set (as we can see 'false') then the reset_selected_cards reducer is utilized
-        //     return {
-        //         ...state,
-        //         matched_set_bool: !state.matched_set_bool,
-        //     }
-        // }
     }
     return state;
 }
