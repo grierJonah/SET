@@ -63,7 +63,6 @@ let mapDispatchToProps = function (dispatch, props) {
 }
 
 let mapStateToProps = function (state, props) {
-    console.log(state.selected_cards.clicked_cards);
     return {
         selected_cards_from_state: state.selected_cards,
     }

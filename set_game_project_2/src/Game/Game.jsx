@@ -108,6 +108,19 @@ class Game extends React.Component {
                         }
                     </div>
                 </div>
+                <div className="right-container">
+                    <div className="hints-container">
+                        {
+                            <div className="hints">
+                                {this.props.deck_in_state.find_set.map((card, value) => {
+                                    return (
+                                        <Card key={value} card_info={card} card_id={card} shape={card}></Card>
+                                    );
+                                })}
+                            </div>
+                        }
+                    </div>
+                </div>
             </div >
         );
     }

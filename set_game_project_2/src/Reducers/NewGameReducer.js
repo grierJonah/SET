@@ -4,6 +4,7 @@ export default function (state = {
     counter: 12,
     collected_sets: new Set(),
     num_sets: 0,
+    find_set: [],
 }, action) {
 
     const card_one = action.card_one;
@@ -15,6 +16,7 @@ export default function (state = {
     let numbers = ['1', '2', '3'];
     let shapes = ['circle', 'square', 'triangle'];
     let deck = [];
+    let new_arr;
 
     function shuffle(array) {
         for (let i = array.length - 1; i > 0; i--) {
@@ -24,12 +26,44 @@ export default function (state = {
         return array;
     }
 
+    function findMeASet(array) {
+        for (let i = 0; i < 12 - 1; i++) {
+            for (let j = i + 1; j < 12 - 1; j++) {
+                for (let k = j + 1; k < 12 - 2; k++) {
+                    new_arr = [array[i], array[j], array[k]];
+
+                    // using modulo 3 since there are 3 indices yet 12 board slots (runs into index out of bounds error)
+                    // Same Shape, Color, Pattern
+                    if (new_arr[i % 3].shape === new_arr[j % 3].shape && new_arr[i % 3].shape === new_arr[k % 3].shape && new_arr[j % 3].shape === new_arr[k % 3].shape) {
+                        if (new_arr[i % 3].color === new_arr[j % 3].color && new_arr[i % 3].color === new_arr[k % 3].color && new_arr[j % 3].color === new_arr[k % 3].color) {
+                            if (new_arr[i % 3].pattern === new_arr[j % 3].pattern && new_arr[i % 3].pattern === new_arr[k % 3].pattern && new_arr[j % 3].pattern === new_arr[k % 3].pattern) {
+                                if (new_arr[i % 3].number !== new_arr[j % 3].number && new_arr[i % 3].number !== new_arr[k % 3].number && new_arr[j % 3].number !== new_arr[k % 3].number) {
+                                    return new_arr;
+                                }
+                            }
+                        }
+                        // Different Shape, Color, Pattern
+                    } else if (new_arr[i % 3].shape !== new_arr[j % 3].shape && new_arr[i % 3].shape !== new_arr[k % 3].shape && new_arr[j % 3].shape !== new_arr[k % 3].shape) {
+                        if (new_arr[i % 3].color !== new_arr[j % 3].color && new_arr[i % 3].color !== new_arr[k % 3].color && new_arr[j % 3].color !== new_arr[k % 3].color) {
+                            if (new_arr[i % 3].pattern !== new_arr[j % 3].pattern && new_arr[i % 3].pattern !== new_arr[k % 3].pattern && new_arr[j % 3].pattern !== new_arr[k % 3].pattern) {
+                                if (new_arr[i % 3].number !== new_arr[j % 3].number && new_arr[i % 3].number !== new_arr[k % 3].number && new_arr[j % 3].number !== new_arr[k % 3].number) {
+                                    console.log("Pair:", new_arr);
+                                    return new_arr;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     function checkForSet(array) {
         // return true or false, true will break, false will re-shuffle
         for (let i = 0; i < 12 - 1; i++) {
             for (let j = i + 1; j < 12 - 1; j++) {
                 for (let k = j + 1; k < 12 - 2; k++) {
-                    let new_arr = [array[i], array[j], array[k]];
+                    new_arr = [array[i], array[j], array[k]];
 
                     // using modulo 3 since there are 3 indices yet 12 board slots (runs into index out of bounds error)
                     // Same Shape, Color, Pattern
@@ -219,6 +253,15 @@ export default function (state = {
             }
         } else {
             console.log("No matches found");
+        }
+    }
+
+    if (action.type === "FIND_SET") {
+        let setPair = findMeASet(state.game_board);
+
+        return {
+            ...state,
+            find_set: setPair,
         }
     }
     return state;
