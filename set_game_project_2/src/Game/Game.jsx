@@ -5,14 +5,6 @@ import Card from './Card/Card';
 
 class Game extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            wasNotSeen: true,
-            card_match: false,
-        }
-    }
-
 
     // DISPATCH --> NewGameReducer.js
     onLinkClick(action) {
@@ -33,11 +25,11 @@ class Game extends React.Component {
         this.props.dispatch({ type: action, card: card });
     }
 
-    // DISPATCH --> CheckMatchingSetReducer.js
-    checkMatchingSet(action, curr_deck, cardA, cardB, cardC) {
+    // DISPATCH --> NewGameReducer.js
+    checkMatchingSet(action, game, cardA, cardB, cardC) {
         this.props.dispatch({
             type: action,
-            current_deck: curr_deck,
+            game_map: game,
             card_one: cardA,
             card_two: cardB,
             card_three: cardC
@@ -61,33 +53,16 @@ class Game extends React.Component {
     }
 
     render() {
-
         if (this.props.selected_cards_in_state.clicked_cards.length === 3) {
-            let curr_deck = this.props.deck_in_state;
+            let gameboard_obj = this.props.deck_in_state;
 
             let cardA = this.props.selected_cards_in_state.clicked_cards[0];
             let cardB = this.props.selected_cards_in_state.clicked_cards[1];
             let cardC = this.props.selected_cards_in_state.clicked_cards[2];
 
-            this.checkMatchingSet("CHECK_MATCHING_SET", curr_deck, cardA, cardB, cardC);
-            console.log("Accessing Props:", this.props.matches);
-            let prevProps = this.props.matches;
+            this.checkMatchingSet("CHECK_MATCHING_SET", gameboard_obj, cardA, cardB, cardC);
 
-            // if (this.props.matches.matched_set_bool && this.state.wasNotSeen) {
-            //     // this.toggleSeen();
-            //     console.log("Matched 3 cards");
-
-            //     let curr_deck = this.props.deck_in_state;
-            //     let clicked_cards = this.props.selected_cards_in_state.clicked_cards;
-
-            //     this.removeCards("GAMEBOARD_REMOVE", curr_deck, clicked_cards);
-
-            //     this.resetCards("RESET_SELECTED_CARDS");
-            // }
-            // else {
-            //     // this.toggleSeen();
-            //     this.resetCards("RESET_SELECTED_CARDS");
-            // }
+            this.resetCards("RESET_SELECTED_CARDS");
         }
 
         // {this.props.deck_in_state.current_deck.length}
@@ -110,7 +85,7 @@ class Game extends React.Component {
                         <ul>
                             <li>Cards in deck: </li>
                             <li>Game Duration:</li>
-                            <li>Sets found: {this.props.matches.num_sets}</li>
+                            <li>Sets found: </li>
                             <li>Score: </li>
                         </ul>
                     </div>
@@ -145,12 +120,9 @@ let mapDispatchToProps = function (dispatch, props) {
 }
 
 let mapStateToProps = function (state, props) {
-    console.log("Map State To Props:", state.collected_sets)
     return {
         deck_in_state: state.deck,
         selected_cards_in_state: state.selected_cards,
-        selected_card_bool: state.selected_card,
-        matches: state.collected_sets,
     }
 }
 

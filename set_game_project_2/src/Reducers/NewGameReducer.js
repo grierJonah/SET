@@ -2,7 +2,14 @@ export default function (state = {
     current_deck: [],
     game_board: [],
     counter: 12,
+    collected_sets: new Set(),
+    num_sets: 0,
 }, action) {
+
+    const game_board = action.game_board;
+    const card_one = action.card_one;
+    const card_two = action.card_two;
+    const card_three = action.card_three;
 
     let colors = ['red', 'blue', 'green'];
     let patterns = ['none', 'solid', 'dashed'];
@@ -153,6 +160,76 @@ export default function (state = {
             game_board: new_game_board,
             counter: new_game_board.length,
         }
+    }
+
+    if (action.type === "CHECK_MATCHING_SET") {
+        if (card_one.shape === card_two.shape && card_one.shape === card_three.shape && card_two.shape === card_three.shape) {
+            if (card_one.color === card_two.color && card_one.color === card_three.color && card_two.color === card_three.color) {
+                if (card_one.pattern === card_two.pattern && card_one.pattern === card_three.pattern && card_two.pattern === card_three.pattern) {
+
+                    console.log("MATCHING SET FOUND!!!");
+
+                    let add_new_set = { card_one, card_two, card_three }
+
+                    let old_game_board = deck.game_board;
+                    let new_game_board = deck.game_board;
+
+                    let remove_cards = [card_one.index, card_two.index, card_three.index]
+
+                    for (let i = 0; i < remove_cards.length; i++) {
+                        let card = findCard(old_game_board, remove_cards[i]);
+                        new_game_board = removeCard(new_game_board, card);
+                    }
+
+                    return {
+                        ...state,
+                        collected_sets: state.collected_sets.add(add_new_set),
+                        num_sets: state.num_sets + 1,
+                        game_board: new_game_board,
+                        counter: new_game_board.length,
+                    }
+                }
+            }
+        } else if (card_one.shape !== card_two.shape && card_one.shape !== card_three.shape && card_two.shape !== card_three.shape) {
+            if (card_one.color !== card_two.color && card_one.color !== card_three.color && card_two.color !== card_three.color) {
+                if (card_one.pattern !== card_two.pattern && card_one.pattern !== card_three.pattern && card_two.pattern !== card_three.pattern) {
+
+                    console.log("MATCHING SET FOUND!!!");
+
+                    let add_new_set = { card_one, card_two, card_three }
+
+                    let old_game_board = action.game_map.game_board;
+                    let new_game_board = action.game_map.game_board;
+
+                    let remove_cards = [card_one.index, card_two.index, card_three.index]
+
+                    for (let i = 0; i < remove_cards.length; i++) {
+                        let card = findCard(old_game_board, remove_cards[i]);
+                        new_game_board = removeCard(new_game_board, card);
+                    }
+
+                    return {
+                        ...state,
+                        collected_sets: state.collected_sets.add(add_new_set),
+                        num_sets: state.num_sets + 1,
+                        game_board: new_game_board,
+                        counter: new_game_board.length,
+                    }
+                }
+            }
+        } else {
+            console.log("No matches found");
+        }
+
+        // else {
+        //     // Here we are using a boolean to dynamically set what our Card.jsx 'render' function logic will do. 
+        //     // See line 57 in Card.jsx. It pulls from this reducer to check if the 3-pair cards are a matching set or not. 
+        //     // If they are not a matching set (as we can see 'false') then the reset_selected_cards reducer is utilized
+        //     return {
+        //         ...state,
+        //         matched_set_bool: !state.matched_set_bool,
+        //     }
+        // }
     }
     return state;
 }

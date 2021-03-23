@@ -20,6 +20,7 @@ export default function (state = {
     }
 
     if (action.type === "RESET_SELECTED_CARDS") {
+        console.log("Resetting selected cards...");
         return {
             clicked_cards: [],
         }
