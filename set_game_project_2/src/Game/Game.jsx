@@ -68,6 +68,7 @@ class Game extends React.Component {
         // {this.props.deck_in_state.current_deck.length}
         // onClick={() => this.clickedCard("CLICKED_CARD", card)}
 
+        console.log("Outside render", this.props.deck_in_state);
         return (
             <div className="main-body-container" >
                 <div className="header-container">
@@ -108,7 +109,7 @@ class Game extends React.Component {
                         }
                     </div>
                 </div>
-                <div className="right-container">
+                <div className="side-panel-right-container">
                     <div className="hints-container">
                         {
                             <div className="hints">

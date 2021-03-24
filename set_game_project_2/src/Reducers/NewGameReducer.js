@@ -18,6 +18,8 @@ export default function (state = {
     let deck = [];
     let new_arr;
 
+
+    // Shuffles entire deck of cards
     function shuffle(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -26,10 +28,11 @@ export default function (state = {
         return array;
     }
 
+    // Finds and returns a matching pair
     function findMeASet(array) {
-        for (let i = 0; i < 12 - 1; i++) {
-            for (let j = i + 1; j < 12 - 1; j++) {
-                for (let k = j + 1; k < 12 - 2; k++) {
+        for (let i = 0; i < array.length - 1; i++) {
+            for (let j = i + 1; j < array.length - 2; j++) {
+                for (let k = j + 1; k < array.length - 3; k++) {
                     new_arr = [array[i], array[j], array[k]];
 
                     // using modulo 3 since there are 3 indices yet 12 board slots (runs into index out of bounds error)
@@ -38,6 +41,7 @@ export default function (state = {
                         if (new_arr[i % 3].color === new_arr[j % 3].color && new_arr[i % 3].color === new_arr[k % 3].color && new_arr[j % 3].color === new_arr[k % 3].color) {
                             if (new_arr[i % 3].pattern === new_arr[j % 3].pattern && new_arr[i % 3].pattern === new_arr[k % 3].pattern && new_arr[j % 3].pattern === new_arr[k % 3].pattern) {
                                 if (new_arr[i % 3].number !== new_arr[j % 3].number && new_arr[i % 3].number !== new_arr[k % 3].number && new_arr[j % 3].number !== new_arr[k % 3].number) {
+                                    console.log("new Pair:", new_arr);
                                     return new_arr;
                                 }
                             }
@@ -47,7 +51,7 @@ export default function (state = {
                         if (new_arr[i % 3].color !== new_arr[j % 3].color && new_arr[i % 3].color !== new_arr[k % 3].color && new_arr[j % 3].color !== new_arr[k % 3].color) {
                             if (new_arr[i % 3].pattern !== new_arr[j % 3].pattern && new_arr[i % 3].pattern !== new_arr[k % 3].pattern && new_arr[j % 3].pattern !== new_arr[k % 3].pattern) {
                                 if (new_arr[i % 3].number !== new_arr[j % 3].number && new_arr[i % 3].number !== new_arr[k % 3].number && new_arr[j % 3].number !== new_arr[k % 3].number) {
-                                    console.log("Pair:", new_arr);
+                                    console.log("new Pair:", new_arr);
                                     return new_arr;
                                 }
                             }
@@ -56,13 +60,53 @@ export default function (state = {
                 }
             }
         }
+        return false;
     }
 
+    function resetDeckHelper(deck_) {
+        let re_shuffle_deck = shuffle(deck_);
+
+        let flag = true;
+        while (flag) {
+            if (checkForSet(re_shuffle_deck)) {
+                flag = false;
+                break;
+            }
+            console.log("Reshuffling");
+            re_shuffle_deck = shuffle(re_shuffle_deck);
+        }
+
+        console.log("Find Me A Set Function:", findMeASet(re_shuffle_deck));
+        let new_set = findMeASet(re_shuffle_deck);
+
+        let new_game_board = [];
+
+        // Add to our starting board
+        for (let i = 0; i < 12; i++) {
+            new_game_board.push(re_shuffle_deck[i]);
+        }
+
+        // Remove cards from our deck since they are present on the gameboard
+        for (let i = 0; i < 12; i++) {
+            re_shuffle_deck.shift();
+        }
+
+        let new_deck = re_shuffle_deck;
+
+
+        return {
+            current_deck: new_deck,
+            game_board: new_game_board,
+            find_set: new_set,
+        }
+    }
+
+    // Checks only for first 12 cards to contain a matching pair
     function checkForSet(array) {
         // return true or false, true will break, false will re-shuffle
         for (let i = 0; i < 12 - 1; i++) {
-            for (let j = i + 1; j < 12 - 1; j++) {
-                for (let k = j + 1; k < 12 - 2; k++) {
+            for (let j = i + 1; j < 12 - 2; j++) {
+                for (let k = j + 1; k < 12 - 3; k++) {
                     new_arr = [array[i], array[j], array[k]];
 
                     // using modulo 3 since there are 3 indices yet 12 board slots (runs into index out of bounds error)
@@ -92,10 +136,12 @@ export default function (state = {
         }
     }
 
+    // Finds card in the gameboard
     function findCard(gameboard, card_index) {
         return gameboard.find((obj) => obj.index === card_index);
     }
 
+    // Removes card from the gameboard
     function removeCard(gameboard, card) {
         return gameboard.filter((c) => c.index !== card.index);
     }
@@ -135,8 +181,7 @@ export default function (state = {
             starting_board.push(shuffled_deck[i]);
         }
 
-        // Remove cards from our deck and put into a 'picked deck' 
-        //      --> tracks selected deck cards so there aren't any double pulls when adding more cards to the screen
+        // Remove cards from our deck since they are present on the gameboard
         for (let i = 0; i < 12; i++) {
             shuffled_deck.shift();
         }
@@ -221,6 +266,7 @@ export default function (state = {
                         num_sets: state.num_sets + 1,
                         game_board: new_game_board,
                         counter: new_game_board.length,
+                        find_set: [],
                     }
                 }
             }
@@ -248,6 +294,7 @@ export default function (state = {
                         num_sets: state.num_sets + 1,
                         game_board: new_game_board,
                         counter: new_game_board.length,
+                        find_set: [],
                     }
                 }
             }
@@ -258,6 +305,19 @@ export default function (state = {
 
     if (action.type === "FIND_SET") {
         let setPair = findMeASet(state.game_board);
+        if (!setPair) {
+            console.log("Cant find set...\nReshuffling Gameboard...");
+            setPair = resetDeckHelper(state.current_deck);
+        }
+
+
+        // console.log(">Current Deck:", state.current_deck)
+        // console.log("Gameboard: ", state.game_board)
+        console.log("Found set?", setPair);                         /// HERE!!! We need resetDeckHelper to return single find set array not object!
+        if (setPair.find_set !== undefined) {
+            setPair = setPair.find_set;
+        }
+
 
         return {
             ...state,
