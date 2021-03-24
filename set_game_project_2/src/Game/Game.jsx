@@ -65,10 +65,6 @@ class Game extends React.Component {
             this.resetCards("RESET_SELECTED_CARDS");
         }
 
-        // {this.props.deck_in_state.current_deck.length}
-        // {this.props.deck_in_state.current_deck.length}       // line 88 in "cards in deck"
-        // onClick={() => this.clickedCard("CLICKED_CARD", card)}
-
         return (
             <div className="main-body-container" >
                 <div className="header-container">
@@ -80,13 +76,14 @@ class Game extends React.Component {
                             <button className="links" onClick={() => this.onLinkClick("NEW_GAME")}>New Game</button>
                             <button className="links" onClick={() => this.getCardsLink("GET_THREE_NEW_CARDS", this.props)}>Open 3 Cards</button>
                             <button className="links" onClick={() => this.onLinkClick("FIND_SET")}>Find Set</button>
+                            <button className="links" onClick={() => this.onLinkClick("REFRESH_GAMEBOARD")}>Refresh Gameboard</button>
                         </ul>
                     </div>
                     <div className="game-statistics">
                         <ul>
-                            <li>Cards in deck: </li>
+                            <li>Cards in deck: {this.props.deck_in_state.current_deck.length}</li>
                             <li>Game Duration:</li>
-                            <li>Sets found: {this.props.deck_in_state.num_sets} </li>
+                            <li>Sets found: {(this.props.deck_in_state.num_sets / 2)} </li>
                             <li>Score: </li>
                         </ul>
                     </div>

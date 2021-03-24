@@ -30,9 +30,9 @@ export default function (state = {
 
     // Finds and returns a matching pair
     function findMeASet(array) {
-        for (let i = 0; i < array.length - 1; i++) {
-            for (let j = i + 1; j < array.length - 2; j++) {
-                for (let k = j + 1; k < array.length - 3; k++) {
+        for (let i = 0; i < 12 - 1; i++) {
+            for (let j = i + 1; j < 12 - 2; j++) {
+                for (let k = j + 1; k < 12 - 3; k++) {
                     new_arr = [array[i], array[j], array[k]];
 
                     // using modulo 3 since there are 3 indices yet 12 board slots (runs into index out of bounds error)
@@ -41,7 +41,6 @@ export default function (state = {
                         if (new_arr[i % 3].color === new_arr[j % 3].color && new_arr[i % 3].color === new_arr[k % 3].color && new_arr[j % 3].color === new_arr[k % 3].color) {
                             if (new_arr[i % 3].pattern === new_arr[j % 3].pattern && new_arr[i % 3].pattern === new_arr[k % 3].pattern && new_arr[j % 3].pattern === new_arr[k % 3].pattern) {
                                 if (new_arr[i % 3].number !== new_arr[j % 3].number && new_arr[i % 3].number !== new_arr[k % 3].number && new_arr[j % 3].number !== new_arr[k % 3].number) {
-                                    console.log("new Pair:", new_arr);
                                     return new_arr;
                                 }
                             }
@@ -51,7 +50,6 @@ export default function (state = {
                         if (new_arr[i % 3].color !== new_arr[j % 3].color && new_arr[i % 3].color !== new_arr[k % 3].color && new_arr[j % 3].color !== new_arr[k % 3].color) {
                             if (new_arr[i % 3].pattern !== new_arr[j % 3].pattern && new_arr[i % 3].pattern !== new_arr[k % 3].pattern && new_arr[j % 3].pattern !== new_arr[k % 3].pattern) {
                                 if (new_arr[i % 3].number !== new_arr[j % 3].number && new_arr[i % 3].number !== new_arr[k % 3].number && new_arr[j % 3].number !== new_arr[k % 3].number) {
-                                    console.log("new Pair:", new_arr);
                                     return new_arr;
                                 }
                             }
@@ -93,12 +91,32 @@ export default function (state = {
         let new_deck = re_shuffle_deck;
 
         return { new_deck, new_game_board, new_set }
+    }
 
-        // return {
-        //     current_deck: new_deck,
-        //     game_board: new_game_board,
-        //     find_set: new_set,
-        // }
+    function refreshGameboard(deck_) {
+        let re_shuffle_deck = shuffle(deck_);
+
+        let flag = true;
+        while (flag) {
+            if (checkForSet(re_shuffle_deck)) {
+                flag = false;
+                break;
+            }
+            console.log("Reshuffling");
+            re_shuffle_deck = shuffle(re_shuffle_deck);
+        }
+
+        let new_set = findMeASet(re_shuffle_deck);
+
+        let new_game_board = [];
+
+        // Add to our starting board
+        for (let i = 0; i < 12; i++) {
+            new_game_board.push(re_shuffle_deck[i]);
+        }
+
+        return { new_game_board, new_set }
+
     }
 
     // Checks only for first 12 cards to contain a matching pair
@@ -115,7 +133,6 @@ export default function (state = {
                         if (new_arr[i % 3].color === new_arr[j % 3].color && new_arr[i % 3].color === new_arr[k % 3].color && new_arr[j % 3].color === new_arr[k % 3].color) {
                             if (new_arr[i % 3].pattern === new_arr[j % 3].pattern && new_arr[i % 3].pattern === new_arr[k % 3].pattern && new_arr[j % 3].pattern === new_arr[k % 3].pattern) {
                                 if (new_arr[i % 3].number !== new_arr[j % 3].number && new_arr[i % 3].number !== new_arr[k % 3].number && new_arr[j % 3].number !== new_arr[k % 3].number) {
-                                    console.log("Pair:", new_arr);
                                     return true;
                                 }
                             }
@@ -125,7 +142,6 @@ export default function (state = {
                         if (new_arr[i % 3].color !== new_arr[j % 3].color && new_arr[i % 3].color !== new_arr[k % 3].color && new_arr[j % 3].color !== new_arr[k % 3].color) {
                             if (new_arr[i % 3].pattern !== new_arr[j % 3].pattern && new_arr[i % 3].pattern !== new_arr[k % 3].pattern && new_arr[j % 3].pattern !== new_arr[k % 3].pattern) {
                                 if (new_arr[i % 3].number !== new_arr[j % 3].number && new_arr[i % 3].number !== new_arr[k % 3].number && new_arr[j % 3].number !== new_arr[k % 3].number) {
-                                    console.log("Pair:", new_arr);
                                     return true;
                                 }
                             }
@@ -320,6 +336,17 @@ export default function (state = {
         return {
             ...state,
             find_set: setPair,
+        }
+    }
+
+    if (action.type === "REFRESH_GAMEBOARD") {
+        let refresh_board = refreshGameboard(state.current_deck);
+
+        return {
+            ...state,
+            current_deck: state.current_deck,
+            find_set: [],
+            game_board: refresh_board.new_game_board,
         }
     }
     return state;
