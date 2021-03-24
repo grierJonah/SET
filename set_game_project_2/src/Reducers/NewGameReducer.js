@@ -5,6 +5,7 @@ export default function (state = {
     collected_sets: new Set(),
     num_sets: 0,
     find_set: [],
+    score: 0,
 }, action) {
 
     const card_one = action.card_one;
@@ -283,6 +284,7 @@ export default function (state = {
                         game_board: new_game_board,
                         counter: new_game_board.length,
                         find_set: [],
+                        score: state.score + 100,
                     }
                 }
             }
@@ -311,6 +313,7 @@ export default function (state = {
                         game_board: new_game_board,
                         counter: new_game_board.length,
                         find_set: [],
+                        score: state.score + 100,
                     }
                 }
             }
@@ -322,6 +325,12 @@ export default function (state = {
     if (action.type === "FIND_SET") {
         let setPair = findMeASet(state.game_board);
         if (!setPair) {
+            if (state.current_deck.length < 12) {
+                console.log("Error: Cannot find new set with given deck size");
+                return {
+                    ...state,
+                }
+            }
             console.log("Cant find set...\nReshuffling Gameboard...");
             setPair = resetDeckHelper(state.current_deck);
 
@@ -330,12 +339,14 @@ export default function (state = {
                 find_set: setPair.new_set,
                 current_deck: setPair.new_deck,
                 game_board: setPair.new_game_board,
+                score: state.score - 50,
             }
         }
 
         return {
             ...state,
             find_set: setPair,
+            score: state.score - 50,
         }
     }
 

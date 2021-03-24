@@ -84,7 +84,7 @@ class Game extends React.Component {
                             <li>Cards in deck: {this.props.deck_in_state.current_deck.length}</li>
                             <li>Game Duration:</li>
                             <li>Sets found: {(this.props.deck_in_state.num_sets / 2)} </li>
-                            <li>Score: </li>
+                            <li>Score: {this.props.deck_in_state.score} </li>
                         </ul>
                     </div>
                     <div className="link-container">
