@@ -66,9 +66,9 @@ class Game extends React.Component {
         }
 
         // {this.props.deck_in_state.current_deck.length}
+        // {this.props.deck_in_state.current_deck.length}       // line 88 in "cards in deck"
         // onClick={() => this.clickedCard("CLICKED_CARD", card)}
 
-        console.log("Outside render", this.props.deck_in_state);
         return (
             <div className="main-body-container" >
                 <div className="header-container">
@@ -84,7 +84,7 @@ class Game extends React.Component {
                     </div>
                     <div className="game-statistics">
                         <ul>
-                            <li>Cards in deck: {this.props.deck_in_state.current_deck.length}</li>
+                            <li>Cards in deck: </li>
                             <li>Game Duration:</li>
                             <li>Sets found: {this.props.deck_in_state.num_sets} </li>
                             <li>Score: </li>

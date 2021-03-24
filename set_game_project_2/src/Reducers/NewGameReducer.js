@@ -76,7 +76,6 @@ export default function (state = {
             re_shuffle_deck = shuffle(re_shuffle_deck);
         }
 
-        console.log("Find Me A Set Function:", findMeASet(re_shuffle_deck));
         let new_set = findMeASet(re_shuffle_deck);
 
         let new_game_board = [];
@@ -93,12 +92,13 @@ export default function (state = {
 
         let new_deck = re_shuffle_deck;
 
+        return { new_deck, new_game_board, new_set }
 
-        return {
-            current_deck: new_deck,
-            game_board: new_game_board,
-            find_set: new_set,
-        }
+        // return {
+        //     current_deck: new_deck,
+        //     game_board: new_game_board,
+        //     find_set: new_set,
+        // }
     }
 
     // Checks only for first 12 cards to contain a matching pair
@@ -308,16 +308,14 @@ export default function (state = {
         if (!setPair) {
             console.log("Cant find set...\nReshuffling Gameboard...");
             setPair = resetDeckHelper(state.current_deck);
+
+            return {
+                ...state,
+                find_set: setPair.new_set,
+                current_deck: setPair.new_deck,
+                game_board: setPair.new_game_board,
+            }
         }
-
-
-        // console.log(">Current Deck:", state.current_deck)
-        // console.log("Gameboard: ", state.game_board)
-        console.log("Found set?", setPair);                         /// HERE!!! We need resetDeckHelper to return single find set array not object!
-        if (setPair.find_set !== undefined) {
-            setPair = setPair.find_set;
-        }
-
 
         return {
             ...state,
