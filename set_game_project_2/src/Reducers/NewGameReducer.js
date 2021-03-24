@@ -31,11 +31,12 @@ export default function (state = {
 
     // Finds and returns a matching pair
     function findMeASet(array) {
+        console.log("find me a set:", state.game_board.length);
+
         for (let i = 0; i < 12 - 1; i++) {
             for (let j = i + 1; j < 12 - 2; j++) {
                 for (let k = j + 1; k < 12 - 3; k++) {
                     new_arr = [array[i], array[j], array[k]];
-
                     // using modulo 3 since there are 3 indices yet 12 board slots (runs into index out of bounds error)
                     // Same Shape, Color, Pattern
                     if (new_arr[i % 3].shape === new_arr[j % 3].shape && new_arr[i % 3].shape === new_arr[k % 3].shape && new_arr[j % 3].shape === new_arr[k % 3].shape) {
@@ -63,6 +64,7 @@ export default function (state = {
     }
 
     function resetDeckHelper(deck_) {
+        console.log("Reset deck helper:", deck_);
         let re_shuffle_deck = shuffle(deck_);
 
         let flag = true;
@@ -128,7 +130,7 @@ export default function (state = {
                 for (let k = j + 1; k < 12 - 3; k++) {
                     new_arr = [array[i], array[j], array[k]];
 
-                    // using modulo 3 since there are 3 indices yet 12 board slots (runs into index out of bounds error)
+                    // using modulo 3 since there are 3 indices in new_arr
                     // Same Shape, Color, Pattern
                     if (new_arr[i % 3].shape === new_arr[j % 3].shape && new_arr[i % 3].shape === new_arr[k % 3].shape && new_arr[j % 3].shape === new_arr[k % 3].shape) {
                         if (new_arr[i % 3].color === new_arr[j % 3].color && new_arr[i % 3].color === new_arr[k % 3].color && new_arr[j % 3].color === new_arr[k % 3].color) {
@@ -324,6 +326,7 @@ export default function (state = {
 
     if (action.type === "FIND_SET") {
         let setPair = findMeASet(state.game_board);
+        console.log(setPair);
         if (!setPair) {
             if (state.current_deck.length < 12) {
                 console.log("Error: Cannot find new set with given deck size");
