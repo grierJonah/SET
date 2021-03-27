@@ -66,7 +66,7 @@ class Game extends React.Component {
                     <h1>Game over!</h1>
                     <h3>Your final score was: <span className="game-over-object">{this.props.deck_in_state.end_score}</span></h3>
                     <h3>The number of sets found: <span className="game-over-object">{this.props.deck_in_state.end_sets}</span></h3>
-                    <h3>The number of hints used: <span className="game-over-object">{this.props.deck_in_state.hints_used}</span></h3>
+                    <h3>The number of hints used: <span className="game-over-object">{this.props.deck_in_state.end_hints}</span></h3>
                 </div>
             )
         }

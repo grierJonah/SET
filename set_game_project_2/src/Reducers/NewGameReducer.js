@@ -161,9 +161,6 @@ export default function (state = {
         }
 
         let new_deck = re_shuffle_deck;
-        console.log("New Deck:",new_deck);
-        console.log("New Gameboard:",new_game_board);
-        console.log("New Set:",new_set);
 
         return {new_deck, new_game_board, new_set}
     }
@@ -439,6 +436,11 @@ export default function (state = {
     if (action.type === "FIND_SET") {
         let setPair = findMeASet(state.game_board);
         if (!setPair) {
+            if (state.current_deck.length === 0) {
+                return {
+                    ...state,
+                }
+            }
             if (state.current_deck.length < 12) {
                 setPair = under12cardsDeckHelper(state.current_deck);
                 if (!setPair) {
@@ -449,6 +451,8 @@ export default function (state = {
                         game_over: !state.game_over,
                         end_score: state.score,
                         end_sets: state.num_sets,
+                        end_hints: state.hints_used,
+                        hints_used:0,
                         score: 0,
                         num_sets: 0,
                     }
