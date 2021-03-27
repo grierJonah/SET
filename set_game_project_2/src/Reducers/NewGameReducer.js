@@ -6,6 +6,8 @@ export default function (state = {
     num_sets: 0,
     find_set: [],
     score: 0,
+    end_sets: 0,
+    end_score: 0,
     hints_used: 0,
     game_over: false,
 }, action) {
@@ -444,7 +446,11 @@ export default function (state = {
                         ...state,
                         game_board: [],
                         current_deck: [],
-                        game_over: !state.game_over
+                        game_over: !state.game_over,
+                        end_score: state.score,
+                        end_sets: state.num_sets,
+                        score: 0,
+                        num_sets: 0,
                     }
                 }
                 return {
