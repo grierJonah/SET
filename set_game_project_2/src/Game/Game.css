@@ -1,104 +1,102 @@
 :root {
-  --main-background-color: wheat;
-  --main-px-size: 20px;
+	--main-background-color: wheat;
+	--main-px-size: 20px;
 }
 
-html, body {
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-  background-color: var(--main-background-color);
+html,
+body {
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	background-color: var(--main-background-color);
 }
 
 ul {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
 }
 
 li {
-  list-style-type: none;
-  font-size: var(--main-px-size);
-  display: flex;
+	list-style-type: none;
+	font-size: var(--main-px-size);
+	display: flex;
 }
 
 button {
-  padding: 15px 32px;
-  margin: 0 0 20px;
-  background-color: grey;
-  color: black;
-  font-size: var(--main-px-size);
+	padding: 15px 32px;
+	margin: 0 0 20px;
+	background-color: grey;
+	color: black;
+	font-size: var(--main-px-size);
 }
 
 button:hover {
-  background-color: chocolate;
+	background-color: chocolate;
 }
 
-
 .main-body-container {
-  display: grid;
-  grid-template-areas: 
-          "header header header"
-          "side-panel-left game-body side-panel-right"    
-  ;
+	display: grid;
+	grid-template-areas:
+		"header header header"
+		"side-panel-left game-body side-panel-right";
 
-  grid-template-columns: 1fr 5fr 1fr;
-  grid-template-rows: 1fr 8fr;
-  grid-gap: 5px;
-  height: 100vh;
+	grid-template-columns: 1fr 5fr 1fr;
+	grid-template-rows: 1fr 8fr;
+	grid-gap: 5px;
+	height: 100vh;
 }
 
 .header-container {
-  grid-area: header;
-  border: 3px solid green;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	grid-area: header;
+	border: 3px solid green;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .side-panel-left-container {
-  grid-area: side-panel-left;
-  border: 3px solid green;
-  display: flex;
-  flex-direction: column;
-  justify-content:space-around;
-  align-items: center;
-  font-size: 32px;
-  text-align: left;
+	grid-area: side-panel-left;
+	border: 3px solid green;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	font-size: 32px;
+	text-align: left;
 }
 
 .side-panel-right-container {
-  grid-area: side-panel-right;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+	grid-area: side-panel-right;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 }
 
-
-
 .body-container {
-  grid-area: game-body;
-  border: 3px solid green;
+	grid-area: game-body;
+	border: 3px solid green;
 }
 
 .card-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	width: 90%;
 }
 .initial-cards {
-  display: flex;
-  flex-flow: row wrap;
-  width: 75%;
-  align-items: center;
-  justify-content: center;
+	display: flex;
+	flex-flow: row wrap;
+	width: 75%;
+	align-items: center;
+	justify-content: center;
 }
 .links {
-  cursor: pointer;
+	cursor: pointer;
 }
 #inner-game-title {
-  font-size: 30px;
+	font-size: 30px;
 }
