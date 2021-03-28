@@ -95,7 +95,7 @@ class Game extends React.Component {
         return (
             <div className="main-body-container" >
                 <div className="header-container">
-                    <h1 id="inner-game-title">SET</h1>
+                    <h1 id="inner-game-title"><a href="../">SET</a></h1>
                 </div>
                 <div className="side-panel-left-container">
                     <div className="link-container">
