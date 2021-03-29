@@ -315,6 +315,7 @@ export default function (state = {
             ...state,
             current_deck: shuffled_deck,
             game_board: starting_board,
+            find_set: [],
             num_sets: 0,
             score: 0,
             hints_used: 0,
