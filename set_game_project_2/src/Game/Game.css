@@ -87,6 +87,32 @@ button:hover {
 	height: 100%;
 	width: 90%;
 }
+
+@media screen and (min-width: 1860px) {
+	.body-container {
+		grid-area: game-body;
+		border: 3px solid green;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+	}
+
+	.card-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+		width: 70%;
+	}
+
+	.initial-cards {
+		display: flex;
+		flex-flow: row wrap;
+		width: 50%;
+		align-items: center;
+		justify-content: center;
+	}
+}
 .initial-cards {
 	display: flex;
 	flex-flow: row wrap;
